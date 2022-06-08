@@ -1,0 +1,4 @@
+outs:
+- md5: ad04db99f17c99cdf07ef259ca5ae6ff
+  size: 2542
+  path: olist_product_category_name_translation.csv
