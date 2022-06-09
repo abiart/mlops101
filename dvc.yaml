@@ -1,0 +1,10 @@
+stages:
+  load_data:
+    cmd: '" -d" scripts/load_data.py -d data/01_raw/olist_customers_dataset.csv -d
+      data/01_raw/olist_geolocation_dataset_latlon.csv -d data/01_raw/olist_geolocation_dataset_state.csv
+      -d data/01_raw/olist_order_items_dataset.csv -d data/01_raw/olist_order_payments_dataset.csv
+      -d data/01_raw/olist_product_category_name_translation.csv -d data/01_raw/olist_products_dataset.csv
+      -d data/01_raw/olist_sellers_dataset.csv -d data/01_raw/olist_orders_dataset.csv
+      " -p" ./conf/catalog.yml -p ./conf/params.yml " " -o data/02_processed/olist_sales_with_payments.csv
+      -o data/02_processed/olist_sum_sales_with_payments.csv python3 ./scripts/load_data.py
+      data/02_processed/olist_sales_with_payments.csv data/02_processed/olist_sum_sales_with_payments.csv'
