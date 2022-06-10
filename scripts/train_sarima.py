@@ -1,49 +1,48 @@
-from datetime import timedelta
+from datetime import timedelta, datetime
 import itertools
 import json
+import matplotlib.pyplot as plt
+from matplotlib import rcParams
 import numpy as np
 import os
 import pandas as pd
 from pathlib import Path
-import yaml
+from time import time 
 import mlflow
-from datetime import datetime
-from time import time
+import yaml
 
 # Get the current project path (where you open the notebook)
 # and go up two levels to get the project path
 current_dir = Path.cwd()
 proj_path = current_dir.parent
 
+
 # make the code in src available to import in this notebook
 import sys
-sys.path.append(os.path.join(proj_path, 'src'))
+sys.path.append(os.path.join(proj_path,'src'))
 
-
-# Custom functions and classes
-from sarima import *
 from utils import *
 from metrics import *
-
+from sarima import *
 
 # Catalog contains all the paths related to datasets
-with open(os.path.join(proj_path,'test-scripts-forpipeline/conf/catalog.yml'), "r") as f:
+with open(os.path.join(proj_path, 'conf/catalog.yml'), "r") as f:
     catalog = yaml.safe_load(f)['olist']
     
 # Params contains all of the dataset creation parameters and model parameters
-with open(os.path.join(proj_path,'test-scripts-forpipeline/conf/params.yml'), "r") as f:
+with open(os.path.join(proj_path, 'conf/params.yml'), "r") as f:
     params = yaml.safe_load(f)
-# Step 1: Load the data, convert to a proper datetime format and apply correction
-merged_data = pd.read_csv(os.path.join(proj_path,catalog['output_dir']['dir'],catalog['output_dir']['transactions']))
+    
+# Step 1: Read data
+merged_data = pd.read_csv(os.path.join(proj_path, 
+                                       catalog['output_dir']['dir'], 
+                                       catalog['output_dir']['transactions']))
 
 merged_data['order_approved_at'] = pd.to_datetime(merged_data['order_approved_at'])
-# merged_data['order_approved_at'] = merged_data['order_approved_at']
+# merged_data['order_approved_at'] = merged_data['order_approved_at'] + timedelta(days=3)
 
-# Step 2: Create date folds
+# Step2: Create date folds
 date_ranges = make_dates(params['olist']['experiment_dates'])
-
-
-
 
 
 for prod_cat in params['olist']['product_categories']:

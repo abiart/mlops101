@@ -9,11 +9,11 @@ import os
 from pathlib import Path
 warnings.filterwarnings("ignore")
 
-current_dir = Path.cwd()
+'''current_dir = Path.cwd()
 proj_path = current_dir.parent.parent
 # make the code in src available to import in this notebook
 import sys
-sys.path.append(os.path.join(proj_path,'src'))
+sys.path.append(os.path.join(proj_path,'src'))'''
 
 # Custom imports
 from metrics import mean_absolute_percentage_error

@@ -16,6 +16,7 @@ import yaml
 current_dir = Path.cwd()
 proj_path = current_dir.parent
 
+
 # make the code in src available to import in this notebook
 import sys
 sys.path.append(os.path.join(proj_path,'src'))
