@@ -1,3 +1,5 @@
+import matplotlib as plt
+plt.rcParams.update({'figure.max_open_warning': 0})
 import itertools
 import json
 import matplotlib.pyplot as plt
@@ -13,15 +15,24 @@ from tqdm import tqdm
 # Get the current project path (where you open the notebook)
 # and go up two levels to get the project path
 current_dir = Path.cwd()
-proj_path = current_dir.parent
+proj_path = current_dir
 
 # make the code in src available to import in this notebook
 import sys
 sys.path.append(os.path.join(proj_path,'src'))
 
+
+
+
+
+
+
+
+
+
 import xgboost as xgb
 from xgboost import XGBClassifier
-from metrics import *
+from metrics import mean_absolute_percentage_error, get_metrics
 from utils import make_dates
 from utils import create_folder
 
@@ -38,6 +49,7 @@ import mlflow
 from glob import glob
 
 from sklearn.metrics import r2_score
+
 
 prod_categories = params['olist']['product_categories']
 date_ranges = make_dates(params['olist']['experiment_dates'])
@@ -83,6 +95,166 @@ for prod_cat in prod_categories:
     
 base_mae_rmse = pd.DataFrame(base_mae_rmse_ll)
 
+def get_min_max(df, date_ranges):
+    
+    _metrics_xgb = []
+    _metrics_sarima = []
+   # _metrics_lstm = []
+    _metrics_prophet = []
+    
+    for window in date_ranges.itertuples():
+        # Filter period
+        temp = df[(pd.to_datetime(df.index) >= window[5]) & 
+                  (pd.to_datetime(df.index) <= window[6])]
+        _metrics_xgb.append(get_metrics(temp['y_true'], temp['y_pred_xgb']))
+        _metrics_sarima.append(get_metrics(temp['y_true'], temp['y_pred_sarima']))
+       # _metrics_lstm.append(get_metrics(temp['y_true'], temp['y_pred_lstm']))
+        _metrics_prophet.append(get_metrics(temp['y_true'], temp['y_pred_prophet']))
+    
+    # Get the min and max for each metric for each model
+    return pd.DataFrame({'model':['sarima','prophet','xgb'],
+                      'min_wape':[pd.DataFrame(_metrics_sarima)['wape'].min(),
+                                 pd.DataFrame(_metrics_prophet)['wape'].min(),
+                                 pd.DataFrame(_metrics_xgb)['wape'].min()],
+                      'min_rmse':[pd.DataFrame(_metrics_sarima)['rmse'].min(),
+                                 pd.DataFrame(_metrics_prophet)['rmse'].min(),
+                                 pd.DataFrame(_metrics_xgb)['rmse'].min()],         
+                      'min_r2':[pd.DataFrame(_metrics_sarima)['r2'].min(),
+                                 pd.DataFrame(_metrics_prophet)['r2'].min(),
+                                 pd.DataFrame(_metrics_xgb)['r2'].min()],
+                                
+                     'min_mape':[pd.DataFrame(_metrics_sarima)['mape'].min(),
+                                 pd.DataFrame(_metrics_prophet)['mape'].min(),
+                                 pd.DataFrame(_metrics_xgb)['mape'].min()],
+                                 
+                     'max_wape':[pd.DataFrame(_metrics_sarima)['wape'].max(),
+                                 pd.DataFrame(_metrics_prophet)['wape'].max(),
+                                 pd.DataFrame(_metrics_xgb)['wape'].max()],
+                                
+                      'max_rmse':[pd.DataFrame(_metrics_sarima)['rmse'].max(),
+                                 pd.DataFrame(_metrics_prophet)['rmse'].max(),
+                                 pd.DataFrame(_metrics_xgb)['rmse'].max()],
+                                
+                      'max_r2':[pd.DataFrame(_metrics_sarima)['r2'].max(),
+                                 pd.DataFrame(_metrics_prophet)['r2'].max(),
+                                 pd.DataFrame(_metrics_xgb)['r2'].max()],
+                          
+                     'max_mape':[pd.DataFrame(_metrics_sarima)['mape'].max(),
+                                 pd.DataFrame(_metrics_prophet)['mape'].max(),
+                                 pd.DataFrame(_metrics_xgb)['mape'].max()],
+                              
+                     'max_mae':[pd.DataFrame(_metrics_sarima)['mae'].max(),
+                                 pd.DataFrame(_metrics_prophet)['mae'].max(),
+                                 pd.DataFrame(_metrics_xgb)['mae'].max()],
+                                 
+                     'min_mae':[pd.DataFrame(_metrics_sarima)['mae'].min(),
+                                 pd.DataFrame(_metrics_prophet)['mae'].min(),
+                                 pd.DataFrame(_metrics_xgb)['mae'].min()]})
+                               
+
+def get_min_max(df, date_ranges):
+    
+    _metrics_xgb = []
+    _metrics_sarima = []
+   # _metrics_lstm = []
+    _metrics_prophet = []
+    
+    for window in date_ranges.itertuples():
+        # Filter period
+        temp = df[(pd.to_datetime(df.index) >= window[5]) & 
+                  (pd.to_datetime(df.index) <= window[6])]
+        _metrics_xgb.append(get_metrics(temp['y_true'], temp['y_pred_xgb']))
+        _metrics_sarima.append(get_metrics(temp['y_true'], temp['y_pred_sarima']))
+       # _metrics_lstm.append(get_metrics(temp['y_true'], temp['y_pred_lstm']))
+        _metrics_prophet.append(get_metrics(temp['y_true'], temp['y_pred_prophet']))
+    
+    # Get the min and max for each metric for each model
+    return pd.DataFrame({'model':['sarima','prophet','xgb'],
+                      'min_wape':[pd.DataFrame(_metrics_sarima)['wape'].min(),
+                                 pd.DataFrame(_metrics_prophet)['wape'].min(),
+                                 pd.DataFrame(_metrics_xgb)['wape'].min()],
+                      'min_rmse':[pd.DataFrame(_metrics_sarima)['rmse'].min(),
+                                 pd.DataFrame(_metrics_prophet)['rmse'].min(),
+                                 pd.DataFrame(_metrics_xgb)['rmse'].min()],         
+                      'min_r2':[pd.DataFrame(_metrics_sarima)['r2'].min(),
+                                 pd.DataFrame(_metrics_prophet)['r2'].min(),
+                                 pd.DataFrame(_metrics_xgb)['r2'].min()],
+                                
+                     'min_mape':[pd.DataFrame(_metrics_sarima)['mape'].min(),
+                                 pd.DataFrame(_metrics_prophet)['mape'].min(),
+                                 pd.DataFrame(_metrics_xgb)['mape'].min()],
+                                 
+                     'max_wape':[pd.DataFrame(_metrics_sarima)['wape'].max(),
+                                 pd.DataFrame(_metrics_prophet)['wape'].max(),
+                                 pd.DataFrame(_metrics_xgb)['wape'].max()],
+                                
+                      'max_rmse':[pd.DataFrame(_metrics_sarima)['rmse'].max(),
+                                 pd.DataFrame(_metrics_prophet)['rmse'].max(),
+                                 pd.DataFrame(_metrics_xgb)['rmse'].max()],
+                                
+                      'max_r2':[pd.DataFrame(_metrics_sarima)['r2'].max(),
+                                 pd.DataFrame(_metrics_prophet)['r2'].max(),
+                                 pd.DataFrame(_metrics_xgb)['r2'].max()],
+                          
+                     'max_mape':[pd.DataFrame(_metrics_sarima)['mape'].max(),
+                                 pd.DataFrame(_metrics_prophet)['mape'].max(),
+                                 pd.DataFrame(_metrics_xgb)['mape'].max()],
+                              
+                     'max_mae':[pd.DataFrame(_metrics_sarima)['mae'].max(),
+                                 pd.DataFrame(_metrics_prophet)['mae'].max(),
+                                 pd.DataFrame(_metrics_xgb)['mae'].max()],
+                                 
+                     'min_mae':[pd.DataFrame(_metrics_sarima)['mae'].min(),
+                                 pd.DataFrame(_metrics_prophet)['mae'].min(),
+                                 pd.DataFrame(_metrics_xgb)['mae'].min()]})
+
+
+metrics_df = pd.DataFrame()
+metrics_mase_rmsse = pd.DataFrame()
+
+for prod_cat in prod_categories:
+    
+    temp = all_product_categories[prod_cat]
+    
+    # Get metrics for each model
+    metrics_xgb = get_metrics(temp['y_true'], temp['y_pred_xgb'])
+    metrics_sarima = get_metrics(temp['y_true'], temp['y_pred_sarima'])
+    #metrics_lstm = get_metrics(temp['y_true'], temp['y_pred_lstm'])
+    metrics_prophet = get_metrics(temp['y_true'], temp['y_pred_prophet'])
+    
+    results = pd.DataFrame([metrics_sarima,metrics_prophet,metrics_xgb], 
+                       index=['sarima', 'prophet', 'xgb'])
+    results['product_category'] = prod_cat
+    results = results.reset_index().rename(columns={'index':'model'})
+    
+    # Calculate the ranks for each metric
+    results['rank_mape'] = results.rank(axis=0)['mape']
+    results['rank_wape'] = results.rank(axis=0)['wape']
+    results['rank_rmse'] = results.rank(axis=0)['rmse']
+    results['rank_mae'] = results.rank(axis=0)['mae']
+    results['rank_r2'] = results.rank(axis=0, ascending=False)['r2']
+    
+    # Add rank for rmsse and mase
+    results = results.merge(base_mae_rmse, how='left', on='product_category')
+    results['mase'] = results['mae'] / results['base_mae']
+    results['rmsse'] = results['rmse'] / results['base_rmse']
+    results['rank_rmsse'] = results.rank(axis=0)['rmsse']
+    results['rank_mase'] = results.rank(axis=0)['mase']
+    
+    min_max_df = get_min_max(df, make_dates(params['olist']['experiment_dates']))
+    results = results.merge(min_max_df, how='inner', on='model')
+    
+    # Calculate the minimum and maximum of each fold.
+    
+    metrics_df = metrics_df.append(results).reset_index(drop=True)
+
+    # merge base metrics for MASE and RMSSE
+    
+#     metrics_mase_rmsse = metrics_df.merge(base_mae_rmse, how='left', on='product_category')
+#     metrics_mase_rmsse = metrics_mase_rmsse[['model', 'rmse', 'mae', 'product_category', 'base_mae', 'base_rmse']]
+#     metrics_mase_rmsse['mase'] = metrics_mase_rmsse['mae'] / metrics_mase_rmsse['base_mae']
+#     metrics_mase_rmsse['rmsse'] = metrics_mase_rmsse['rmse'] / metrics_mase_rmsse['base_rmse']
+
 metrics_df[['model', 'product_category', 'mase', 'rmsse', 'rank_mase','rank_rmsse']]
 
 all_dfs_mase_rmsse = []
@@ -98,27 +270,16 @@ for metric in ['mape','rmse','wape','r2','mae']:
     rank_df[f'rank_{metric}'] = rank_df[f'rank_{metric}'].astype(int)
     all_dfs.append(rank_df.pivot_table(index='model', columns=f'rank_{metric}', values=f'cnt_rank_{metric}').add_prefix(f'{metric}_'))
 
-# View combined of the ranks for each metrics per model
-pd.concat(all_dfs,axis=1)
-
-# View individual ranks for each metrics per model
-for df_metric in all_dfs:
-    display(df_metric)
-
-#all_product_categories['bed_bath_table'].head()
-
-# Plot the forecast for each model
-
 for prod_cat in prod_categories:
     
     temp = all_product_categories[prod_cat]
     temp.sort_index(inplace=True)
 
     for model in ['xgb','sarima','prophet']:
-        
+
         fig, axs = plt.subplots(2, 1, figsize=(16,10))
         plt.subplots_adjust(hspace=0.8)
-        
+       
         # Forecasts
         axs[0].plot(temp['y_true'], marker='o', label='Real', alpha=0.8)
         if model == 'sarima':
@@ -145,7 +306,24 @@ for prod_cat in prod_categories:
             tick.set_rotation(40)
             tick.set_horizontalalignment('right')
             
-        plt.show()
+        #plt.show()
+       
+      
+        # use the figure instance
+        fig.savefig('./data/04_results/plots/'f'Model: {model} Product Category: {prod_cat}' + '.png')
+     
+        
 
+    
     print('\n\n\n')
+
+#print(metrics_df)
+#metrics_df[['model', 'product_category', 'mase', 'rmsse', 'rank_mase','rank_rmsse']]
+# converting to csv
+metrics_df.to_csv('./data/04_results/metrics/metrics.csv')
+
+
+
+
+
 

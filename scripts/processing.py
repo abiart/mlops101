@@ -8,7 +8,7 @@ from datetime import datetime, timedelta
 # Get the current project path (where you open the notebook)
 # and go up two levels to get the project path
 current_dir = Path.cwd()
-proj_path = current_dir.parent
+proj_path = current_dir
 
 # Catalog contains all the paths related to datasets
 with open(os.path.join(proj_path, 'conf/catalog.yml'), "r") as f:

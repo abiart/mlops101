@@ -6,7 +6,7 @@ import yaml
 # Get the current project path (where you open the notebook)
 # and go up two levels to get the project path
 current_dir = Path.cwd()
-proj_path = current_dir.parent
+proj_path = current_dir
 from datetime import timedelta
 from pandas.plotting import register_matplotlib_converters
 from dateutil.relativedelta import relativedelta
