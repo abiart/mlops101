@@ -5,8 +5,8 @@ stages:
       data/02_processed/olist_sum_sales_with_payments.csv
     deps:
     - path: conf/catalog.yml
-      md5: fccd94b556f181952daced043e2f9cd0
-      size: 1421
+      md5: 85083ac7791e081f349fae67766846cb
+      size: 1425
     - path: conf/params.yml
       md5: 9da8dc138619f4ced06d256f508df1a1
       size: 1344

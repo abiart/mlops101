@@ -11,6 +11,13 @@ from time import time
 import mlflow
 import yaml
 
+# get url from dvc 
+import dvc.api
+#path (required)location and file name of the target to open, relative to the root of the project 
+#repo - specifies the location of the DVC project.
+#rev - Git commit(any revision such as a branch or tag name, a commit hash or an experiment name
+
+
 # Get the current project path (where you open the notebook)
 # and go up two levels to get the project path
 current_dir = Path.cwd()
@@ -21,9 +28,21 @@ proj_path = current_dir.parent
 import sys
 sys.path.append(os.path.join(proj_path,'src'))
 
+
+path = 'data/02_processed/olist_sum_sales_with_payments.csv'
+repo= 'https://github.com/abiart/mlops101.git'
+rev ="configure remote storage"
+
+data_url = dvc.api.get_url(
+   path,
+   repo,
+   rev)
+
 from utils import *
 from metrics import *
 from sarima import *
+
+
 
 # Catalog contains all the paths related to datasets
 with open(os.path.join(proj_path, 'conf/catalog.yml'), "r") as f:
@@ -70,7 +89,7 @@ for prod_cat in params['olist']['product_categories']:
         df_test  = df_filtered[(df_filtered['order_approved_at'] >= test_start) &
                                (df_filtered['order_approved_at'] <= test_end)]
         
-        # Define set of parameters for SARIMA
+        # Define set of parameters for SARIMA 
         p = d = q = range(0, 2)
         pdq = list(itertools.product(p, d, q))
         spdq = list(itertools.product(p, d, q, [2,3,4]))
@@ -108,10 +127,13 @@ for prod_cat in params['olist']['product_categories']:
     duration_min = int((time() - start_timer) // 60)
     with mlflow.start_run() as run:
         mlflow.log_param('Product Category',prod_cat)
-        mlflow.log_param('SARIMA_Params_Criterion', used_params_folds)                                     
+        mlflow.log_param('SARIMA_Params_Criterion', used_params_folds)  
+        mlflow.log_param('data_url', data_url)
+        mlflow.log_param('data_version', version)                                    
         mlflow.log_metrics(lt_metrics)
         mlflow.log_metrics(nd_metrics)
         mlflow.log_artifact(fname)
         mlflow.log_metric('time', duration_min)
+      
 
 
