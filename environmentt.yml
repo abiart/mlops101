@@ -12,7 +12,7 @@ dependencies:
 - yaml=0.2.5
 - statsmodels=0.11.1
 - xlrd=1.2.0          # For reading Excel files
-- mlflow=1.9.1        # For logging experiments
+- mlflow=1.9.1        # For logging experimentts
 - pip
 - pip:
   - pytrends==4.7.3

@@ -38,21 +38,21 @@ stages:
       md5: 5b22c02facdf842d6c0aea36e1849018
       size: 174703
     - path: scripts/load_data.py
-      md5: 622e3b1106beb234cd6955928f2bb700
-      size: 3932
+      md5: bc3099a0ed589b576c09be8b0aa247bb
+      size: 3939
     outs:
     - path: data/02_processed/olist_sales_with_payments.csv
       md5: 2fcace893a1af9c439f977f37b68cda3
       size: 210322
     - path: data/02_processed/olist_sum_sales_with_payments.csv
-      md5: cf80d92aca20df929de211ea712a01bf
-      size: 255104
+      md5: 9038ddb0fdce7d1f6bcb0d1e1ae48a36
+      size: 240855
   processing:
     cmd: python3 scripts/processing.py python3 scripts/split.py
     deps:
     - path: conf/catalog.yml
-      md5: fccd94b556f181952daced043e2f9cd0
-      size: 1421
+      md5: 85083ac7791e081f349fae67766846cb
+      size: 1425
     - path: conf/params.yml
       md5: 9da8dc138619f4ced06d256f508df1a1
       size: 1344
@@ -60,8 +60,8 @@ stages:
       md5: 2fcace893a1af9c439f977f37b68cda3
       size: 210322
     - path: data/02_processed/olist_sum_sales_with_payments.csv
-      md5: cf80d92aca20df929de211ea712a01bf
-      size: 255104
+      md5: 9038ddb0fdce7d1f6bcb0d1e1ae48a36
+      size: 240855
     - path: src/utils.py
       md5: b3621d3f1ecaf977ba1ec26611735273
       size: 7018

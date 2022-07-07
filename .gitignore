@@ -1,5 +1,14 @@
 /05_extra/olist
 # ignore png extensions
 *.png
-# do not track checkpoint Jupyter Notebook 
+# do not track checkpoint Jupyter Notebook
 .ipynb_checkpoints
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+
+
+
+# VSCode
+.vscode
