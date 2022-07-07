@@ -1,7 +1,6 @@
 name: Python Package and Test
 
-     #Choosing when this action will run : Makes
-    #it run every time there is a push on the repository
+     #Choosing when this action will run : Makes it run every time there is a push on the repository
     on: [push]
    
     jobs:
