@@ -1,11 +1,9 @@
 name: Python Package and Test
 
-     #Choosing when this action will run : Makes it run every time there is a push on the repository
     on: [push]
    
     jobs:
         build:
-        #Github will setup a free Ubuntu instance for us, using the latest official release.
         runs-on: ubuntu-latest
         strategy:
         matrix:
