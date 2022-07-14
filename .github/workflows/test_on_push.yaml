@@ -1,15 +1,13 @@
 name: Python Package and Test
-
-    on: push
-
-
-    jobs:
-        build:
+on: 
+   push :
+jobs:
+    build:
 
         runs-on: ubuntu-latest
         strategy:
         matrix:
-            python-version: [3.7]
+        python-version: [3.7]
 
         steps:
         - uses: actions/checkout@v2
@@ -17,14 +15,15 @@ name: Python Package and Test
         uses: actions/setup-python@v2
         with:
         python-version: ${{ matrix.python-version }}
+
         - name: Install dependencies
-        run: |
+          run: 
         python -m pip install --upgrade pip
         pip install pytest black
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
         - name: Test with pytest
-        run: |
+          run: 
         pytest
         - name: Python Black
-        run: |
+          run: 
         black . --check
