@@ -2,7 +2,7 @@ name: Test 2 jobs in github actions
 on: 
    push :
 jobs:
-  prepare env:
+  prepare_env:
       runs-on: ubuntu-18.04
       strategy:
           matrix:
@@ -19,7 +19,7 @@ jobs:
              pip install pytest black
              if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
   testing:
-      needs: [prepare env]
+      needs: [prepare_env]
       runs-on: [ubuntu-latest]
       steps:
         - uses: actions/checkout@v2
