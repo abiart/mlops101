@@ -5,10 +5,11 @@ jobs:
     runs-on: [ubuntu-latest]
     container: docker://dvcorg/cml-py3:latest
     steps:
-      - uses: actions/checkout@v3
-      - name: 'cml '
-        shell: bash 
-        run: |
-           pip install -r requirements.txt
-          #Install requirements
-           python load_data.py
+    - uses: actions/checkout@v3
+    - uses: iterative/setup-tools@v1
+    - name: 'cml '
+      shell: bash 
+      run: |
+       pip install -r requirements.txt
+       #Install requirements
+       python load_data.py
