@@ -27,6 +27,8 @@ jobs:
           with:
             python-version: ${{ matrix.python-version }}
         - name: Test with pytest
-          run: python3 -m pytest
-        - name: Python3 Black
+          run: |
+           pip install pytest black
+           pytest
+        - name: Python Black
           run:  black . --check
