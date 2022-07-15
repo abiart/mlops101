@@ -9,6 +9,7 @@ jobs:
     - name: 'cml '
       shell: bash 
       run: |
+       python -m pip install --upgrade pip'
        sudo -H  pip install -r requirements.txt
        #Install requirements
-       python load_data.py
+       python ./scripts/load_data.py 
