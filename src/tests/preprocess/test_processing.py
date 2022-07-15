@@ -1,6 +1,6 @@
 import io
 import builtins
-import pytest
+
 from pathlib import Path
 import pandas as pd
 import sys
@@ -23,7 +23,6 @@ import processing
 sys.path.append(
     os.path.dirname(os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
 )
-
 
 FILE_NAME = "test_olist_customers_dataset"
 DATA_PATH = (
@@ -52,13 +51,14 @@ def test_null_percent():
     assert processing.null_percent_by_line(data).to_list() == [0.5, 0]
 
 
-"""@pytest.mark.dependency()
+"""
+@pytest.mark.dependency()
 def test_processing():
     # Checks if running the preprocess function returns an error
-    processing.preprocess_data(DATA_PATH)"""
-
-
+    processing.preprocess_data(DATA_PATH)
 """
+
+""""
 
 @pytest.mark.dependency(depends=["test_processing"])
 def test_processed_file_created():
