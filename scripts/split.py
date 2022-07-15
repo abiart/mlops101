@@ -3,6 +3,7 @@ import os
 from pathlib import Path
 import pandas as pd
 import yaml
+
 # Get the current project path (where you open the notebook)
 # and go up two levels to get the project path
 current_dir = Path.cwd()
@@ -13,26 +14,27 @@ from dateutil.relativedelta import relativedelta
 
 # make the code in src available to import in this notebook
 import sys
-sys.path.append(os.path.join(proj_path, 'src'))
+
+sys.path.append(os.path.join(proj_path, "src"))
 
 # Custom functions and classes
 from utils import make_dates, create_folder
 
 # Catalog contains all the paths related to datasets
-with open(os.path.join(proj_path, 'conf/catalog.yml'), "r") as f:
-    catalog = yaml.safe_load(f)['olist']
-    
+with open(os.path.join(proj_path, "conf/catalog.yml"), "r") as f:
+    catalog = yaml.safe_load(f)["olist"]
+
 # Params contains all of the dataset creation parameters and model parameters
-with open(os.path.join(proj_path, 'conf/params.yml'), "r") as f:
+with open(os.path.join(proj_path, "conf/params.yml"), "r") as f:
     params = yaml.safe_load(f)
 
 
-date_ranges = make_dates(params['olist']['experiment_dates'])
+date_ranges = make_dates(params["olist"]["experiment_dates"])
 
 
 def show_windows(dates: pd.DataFrame, fname=None):
     """Generate a plot to view the time of the different folds.
-    
+
     fname to save plot, specify a path.
     """
     # Register a date converter from pandas to work with matplotlib
@@ -61,4 +63,6 @@ def show_windows(dates: pd.DataFrame, fname=None):
     if fname:
         plt.savefig(fname)
     plt.show()
+
+
 show_windows(date_ranges)

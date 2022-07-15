@@ -1,4 +1,4 @@
-/05_extra/olist
+
 # ignore png extensions
 *.png
 # do not track checkpoint Jupyter Notebook
