@@ -1,0 +1,17 @@
+name: train-my-model
+on: [push]
+jobs:
+  run:
+    runs-on: [ubuntu-latest]
+    container: docker://dvcorg/cml-py3:latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: iterative/setup-tools@v1
+        with:
+          python-version: '3.x'
+      - name: 'cml '
+        shell: bash
+        run: |
+           pip install -r requirements.txt
+          #Install requirements
+           python load_data.py
