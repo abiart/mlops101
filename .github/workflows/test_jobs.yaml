@@ -4,7 +4,7 @@ on:
 jobs:
   prepare env:
       runs-on: ubuntu-18.04
-        strategy:
+      strategy:
           matrix:
             python-version: [3.7]
       steps:
