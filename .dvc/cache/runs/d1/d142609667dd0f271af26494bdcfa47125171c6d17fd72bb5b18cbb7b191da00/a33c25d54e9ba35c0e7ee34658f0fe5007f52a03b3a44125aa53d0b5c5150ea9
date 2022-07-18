@@ -1,0 +1,12 @@
+cmd: python3 scripts/evaluation_sarima.py
+deps:
+- path: data/04_results/olist/exp1_sarima_housewares.csv
+  md5: 1447b63cd482aabd7a9ee092402f5a4b
+  size: 1768
+- path: data/04_results/olist/exp1_sarima_watches_gifts.csv
+  md5: 4b541913fab604b17cef37840e6faaff
+  size: 1769
+outs:
+- path: data/04_results/metrics/metricsof_sarima.csv
+  md5: 1e4da6fdb74e0523b5fdb529529ae315
+  size: 3074
