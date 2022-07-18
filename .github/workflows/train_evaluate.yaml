@@ -1,4 +1,4 @@
-name: report cml  
+name: model-training-evaluate 
 on: [push]
 jobs:
   run:

@@ -56,12 +56,6 @@ stages:
     - path: conf/params.yml
       md5: 9da8dc138619f4ced06d256f508df1a1
       size: 1344
-    - path: data/02_processed/olist_sales_with_payments.csv
-      md5: 2fcace893a1af9c439f977f37b68cda3
-      size: 210322
-    - path: data/02_processed/olist_sum_sales_with_payments.csv
-      md5: 9038ddb0fdce7d1f6bcb0d1e1ae48a36
-      size: 240855
     - path: src/utils.py
-      md5: b3621d3f1ecaf977ba1ec26611735273
-      size: 7018
+      md5: a0f8ad8e38e3d034655c8b07e36a344b
+      size: 7397
