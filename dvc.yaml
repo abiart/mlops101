@@ -26,6 +26,8 @@ stages:
     - conf/catalog.yml
     - conf/params.yml
     - src/utils.py
+    
+    
      #data/02_processed/olist_sales_with_payments.csv
      #data/02_processed/olist_sum_sales_with_payments.csv
 
@@ -38,8 +40,8 @@ stages:
     - conf/catalog.yml
     - conf/params.yml
     - src/utils.py
-    - src/sarima.py
     - src/metrics.py
+    - src/sarima.py
     outs:
      - data/04_results/olist/exp1_sarima_bed_bath_table.csv
      - data/04_results/olist/exp1_sarima_health_beauty.csv
@@ -48,11 +50,11 @@ stages:
      - data/04_results/olist/exp1_sarima_watches_gifts.csv
      - data/04_results/olist/exp1_sarima_housewares.csv
   evaluate:
-    cmd: python3 scripts/evaluation.py
+    cmd: python3 scripts/evaluation_sarima.py
     deps:
     - data/04_results/olist/exp1_sarima_watches_gifts.csv
     - data/04_results/olist/exp1_sarima_housewares.csv
 
     outs:
-     - data/04_results/metrics/metrics.csv
-     - data/04_results/plots/'Model:sarimaProduct Category:furniture_decor.png'
+     - data/04_results/metrics/metricsof_sarima.csv
+     

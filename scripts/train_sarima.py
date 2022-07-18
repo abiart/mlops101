@@ -12,7 +12,7 @@ import mlflow
 import yaml
 
 # get url from dvc
-import dvc.api
+# import dvc.api
 
 # path (required)location and file name of the target to open, relative to the root of the project
 # repo - specifies the location of the DVC project.
@@ -22,7 +22,7 @@ import dvc.api
 # Get the current project path (where you open the notebook)
 # and go up two levels to get the project path
 current_dir = Path.cwd()
-proj_path = current_dir.parent
+proj_path = current_dir
 
 
 # make the code in src available to import in this notebook
@@ -31,11 +31,11 @@ import sys
 sys.path.append(os.path.join(proj_path, "src"))
 
 
-path = "data/02_processed/olist_sum_sales_with_payments.csv"
+"""path = "data/02_processed/olist_sum_sales_with_payments.csv"
 repo = "https://github.com/abiart/mlops101.git"
 rev = "v2"
 
-data_url = dvc.api.get_url(path, repo, rev)
+data_url = dvc.api.get_url(path, repo, rev)"""
 
 from utils import *
 from metrics import *
@@ -156,8 +156,8 @@ for prod_cat in params["olist"]["product_categories"]:
     with mlflow.start_run() as run:
         mlflow.log_param("Product Category", prod_cat)
         mlflow.log_param("SARIMA_Params_Criterion", used_params_folds)
-        mlflow.log_param("data_url", data_url)
-        mlflow.log_param("data_version", version)
+        # mlflow.log_param("data_url", data_url)
+        # mlflow.log_param("data_version", version)
         mlflow.log_metrics(lt_metrics)
         mlflow.log_metrics(nd_metrics)
         mlflow.log_artifact(fname)
