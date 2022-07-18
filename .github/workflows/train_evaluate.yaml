@@ -15,6 +15,7 @@ jobs:
           python -m pip install --upgrade pip
           sudo -H  pip install -r requirements.txt
           # Pull data & run-cache from S3 and reproduce pipeline
+          dvc pull --run-cache
           dvc repro
           # Report metrics
           echo "## Metrics" >> report.md
