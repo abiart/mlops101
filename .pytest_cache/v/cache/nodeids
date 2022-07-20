@@ -1,4 +1,0 @@
-[
-  "src/tests/preprocess/test_processing.py::test_count_nulls_by_line",
-  "src/tests/preprocess/test_processing.py::test_null_percent"
-]
