@@ -1,0 +1,15 @@
+artifact_uri: file:///home/abir/Desktop/mlops-remote-rep/mlops101/mlruns/0/9b5b88b1b9fc47c9b047c565567f1ddc/artifacts
+end_time: 1658505010067
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+name: ''
+run_id: 9b5b88b1b9fc47c9b047c565567f1ddc
+run_uuid: 9b5b88b1b9fc47c9b047c565567f1ddc
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1658505010049
+status: 3
+tags: []
+user_id: abir
