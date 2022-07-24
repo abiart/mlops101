@@ -49,16 +49,16 @@ merged_data["order_approved_at"] = pd.to_datetime(merged_data["order_approved_at
 # Step2: Create date folds
 date_ranges = make_dates(params["olist"]["experiment_dates"])
 
-# mlflow.set_tracking_uri("http://ec2-34-224-166-169.compute-1.amazonaws.com:5000")
+mlflow.set_tracking_uri("http://ec2-34-224-166-169.compute-1.amazonaws.com:5000")
 for prod_cat in params["olist"]["product_categories"]:
     print(f"Processing product category: {prod_cat}")
 
     # Initialize mlflow tracking
-    create_folder(os.path.join(proj_path, "mlruns"))
-    mlflow.set_tracking_uri(os.path.join(proj_path, "mlruns"))
-    mlflow.set_tracking_uri(os.path.join("../../", "mlruns"))
+    # create_folder(os.path.join(proj_path, "mlruns"))
+    # mlflow.set_tracking_uri(os.path.join(proj_path, "mlruns"))
+    # mlflow.set_tracking_uri(os.path.join("../../", "mlruns"))
 
-    # ARTIFACT_PATH = "model"
+    ARTIFACT_PATH = "model"
     mlflow.set_experiment(prod_cat)
 
     metrics = []
@@ -160,10 +160,10 @@ for prod_cat in params["olist"]["product_categories"]:
         mlflow.log_param("model", "prophet")
         mlflow.log_metrics(metrics)
         mlflow.log_metric("time", duration_min)
-        # mlflow.prophet.log_model(model, "model")
+        mlflow.prophet.log_model(model, "model")
 
-        # model_uri = mlflow.get_artifact_uri(ARTIFACT_PATH)
-        # print(f"Model artifact logged to: {model_uri}")
+        model_uri = mlflow.get_artifact_uri(ARTIFACT_PATH)
+        print(f"Model artifact logged to: {model_uri}")
 
 
-# loaded_model = mlflow.prophet.load_model(model_uri)
+loaded_model = mlflow.prophet.load_model(model_uri)
