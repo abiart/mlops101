@@ -1,0 +1,4 @@
+outs:
+- md5: 5b22c02facdf842d6c0aea36e1849018
+  size: 174703
+  path: olist_sellers_dataset.csv
