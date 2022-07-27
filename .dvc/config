@@ -1,4 +1,6 @@
 [core]
     remote = remote-storage
+    autostage = true
+    analytics = false
 ['remote "remote-storage"']
     url = s3://mlops-101-storage/dvc-data/
