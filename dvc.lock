@@ -1,0 +1,49 @@
+schema: '2.0'
+stages:
+  load_data:
+    cmd: python scripts/load_data.py data/02_processed/olist_sales_with_payments.csv
+      data/02_processed/olist_sum_sales_with_payments.csv
+    deps:
+    - path: conf/catalog.yml
+      md5: 85083ac7791e081f349fae67766846cb
+      size: 1425
+    - path: conf/params.yml
+      md5: 9da8dc138619f4ced06d256f508df1a1
+      size: 1344
+    - path: data/01_raw/olist_customers_dataset.csv
+      md5: 6bbd5a63d741fc205b7a21717dff3d4c
+      size: 8661702
+    - path: data/01_raw/olist_geolocation_dataset_latlon.csv
+      md5: bfe667890a5f90cf11824bd8fbbf862f
+      size: 44410357
+    - path: data/01_raw/olist_geolocation_dataset_state.csv
+      md5: 75c141e9918b6e0209a0a89481a7552e
+      size: 20306167
+    - path: data/01_raw/olist_order_items_dataset.csv
+      md5: f4fa76976662e9cba0633f9e49ed2645
+      size: 15438671
+    - path: data/01_raw/olist_order_payments_dataset.csv
+      md5: 75ce0c041d18e5f250c5cea9a8042944
+      size: 5777138
+    - path: data/01_raw/olist_orders_dataset.csv
+      md5: 8bd60e55c1ca229d9f70b62f3e72f22c
+      size: 17654914
+    - path: data/01_raw/olist_product_category_name_translation.csv
+      md5: ad04db99f17c99cdf07ef259ca5ae6ff
+      size: 2542
+    - path: data/01_raw/olist_products_dataset.csv
+      md5: e935401104a3669223b83c9a01fdf5ca
+      size: 2379446
+    - path: data/01_raw/olist_sellers_dataset.csv
+      md5: 5b22c02facdf842d6c0aea36e1849018
+      size: 174703
+    - path: scripts/load_data.py
+      md5: 4d21e0852d8f02d178c52931227141fe
+      size: 3885
+    outs:
+    - path: data/02_processed/olist_sales_with_payments.csv
+      md5: 2fcace893a1af9c439f977f37b68cda3
+      size: 210322
+    - path: data/02_processed/olist_sum_sales_with_payments.csv
+      md5: 9038ddb0fdce7d1f6bcb0d1e1ae48a36
+      size: 240855
