@@ -1,4 +1,4 @@
-name: report cml  
+'''name: report cml  
 on: [push]
 jobs:
   run:
@@ -22,4 +22,4 @@ jobs:
        cml-publish data/05_extra/olist/xgb_importance/2018-01-28/olist_xgb_exp1_bed_bath_table.png --md >> report.md
        
           
-       cml-send-comment report.md
+       cml-send-comment report.md'''
