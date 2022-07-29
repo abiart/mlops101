@@ -13,19 +13,19 @@ import yaml
 from prophet import Prophet
 from prophet.diagnostics import cross_validation, performance_metrics
 
-import dvc.api
-
+# import dvc.api
 # path (required)location and file name of the target to open, relative to the root of the project
 # repo - specifies the location of the DVC project.
 # rev - Git commit(any revision such as a branch or tag name, a commit hash or an experiment name
 
-path = "data/01_raw/olist_customers_dataset.csv"
-repo = "mlops-remote-rep/mlops101"
-rev = "v2"
+# path = 'data/01_raw/olist_customers_dataset.csv'
+# repo = 'mlops-remote-rep/mlops101'
+
 # remote = 's3://mlops-101-storage'
 
 
-data_url = dvc.api.get_url(path=path, repo=repo, rev=rev)
+# data_url = dvc.api.get_url(path=path,
+# repo=repo)
 
 
 # Get the current project path (where you open the notebook)
@@ -173,8 +173,8 @@ for prod_cat in params["olist"]["product_categories"]:
         mlflow.log_artifact(fname)
         mlflow.log_param("Product Category", prod_cat)
         mlflow.log_param("model", "prophet")
-        mlflow.log_param("data_url", data_url)
-        mlflow.log_param("version", rev)
+        # mlflow.log_param("data_url", data_url)
+        # mlflow.log_param("version", rev)
         mlflow.log_metrics(metrics)
         mlflow.log_metric("time", duration_min)
         mlflow.prophet.log_model(model, "model")

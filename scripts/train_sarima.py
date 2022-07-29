@@ -65,14 +65,12 @@ merged_data["order_approved_at"] = pd.to_datetime(merged_data["order_approved_at
 # Step2: Create date folds
 date_ranges = make_dates(params["olist"]["experiment_dates"])
 
-
+mlflow.set_tracking_uri("http://ec2-34-224-166-169.compute-1.amazonaws.com:5000")
 for prod_cat in params["olist"]["product_categories"]:
     print(f"Processing product category: {prod_cat}")
-
+    ARTIFACT_PATH = "model"
     # Initialize mlflow tracking
-    create_folder(os.path.join(proj_path, "mlruns"))
-    mlflow.set_tracking_uri(os.path.join(proj_path, "mlruns"))
-    mlflow.set_tracking_uri(os.path.join("../../", "mlruns"))
+
     mlflow.set_experiment(prod_cat)
 
     start_timer = time()
@@ -163,4 +161,7 @@ for prod_cat in params["olist"]["product_categories"]:
         mlflow.log_metrics(lt_metrics)
         mlflow.log_metrics(nd_metrics)
         mlflow.log_artifact(fname)
+        model_uri = mlflow.get_artifact_uri(ARTIFACT_PATH)
         mlflow.log_metric("time", duration_min)
+
+mlflow.statsmodels.load_model(model_uri, dst_path=None)
