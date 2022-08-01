@@ -64,16 +64,12 @@ merged_data["order_approved_at"] = pd.to_datetime(merged_data["order_approved_at
 # Step2: Create date folds
 date_ranges = make_dates(params["olist"]["experiment_dates"])
 
-mlflow.set_tracking_uri("http://ec2-34-224-166-169.compute-1.amazonaws.com:5000")
+mlflow.set_tracking_uri("http://ec2-54-160-132-136.compute-1.amazonaws.com:5000")
 for prod_cat in params["olist"]["product_categories"]:
     print(f"Processing product category: {prod_cat}")
 
-    # Initialize mlflow tracking
-    # create_folder(os.path.join(proj_path, "mlruns"))
-    # mlflow.set_tracking_uri(os.path.join(proj_path, "mlruns"))
-    # mlflow.set_tracking_uri(os.path.join("../../", "mlruns"))
+    # ARTIFACT_PATH = "s3://mlops-101-storage/runs_artifacts"
 
-    ARTIFACT_PATH = "model"
     mlflow.set_experiment(prod_cat)
 
     metrics = []
@@ -133,7 +129,7 @@ for prod_cat in params["olist"]["product_categories"]:
 
             # Fit the FB Prohpet Model
             model.fit(pd.concat([train_x.iloc[i:], test_y.iloc[:i]]))
-            future = model.make_future_dataframe(periods=1, freq="7D")
+            future = model.make_future_dataframe(periods=1, freq="14D")
             fcst = model.predict(future)["yhat"].iloc[-1]
             predictions.append(fcst)
 
@@ -170,7 +166,7 @@ for prod_cat in params["olist"]["product_categories"]:
     duration_min = int((time() - start_timer) // 60)
 
     with mlflow.start_run():
-        mlflow.log_artifact(fname)
+        # mlflow.log_artifact(fname, artifact_path)
         mlflow.log_param("Product Category", prod_cat)
         mlflow.log_param("model", "prophet")
         # mlflow.log_param("data_url", data_url)
@@ -183,4 +179,4 @@ for prod_cat in params["olist"]["product_categories"]:
         print(f"Model artifact logged to: {model_uri}")
 
 
-loaded_model = mlflow.prophet.load_model(model_uri)
+# loaded_model = mlflow.prophet.load_model(model_uri)
