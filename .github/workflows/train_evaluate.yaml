@@ -1,4 +1,4 @@
-'''name: model-training-evaluate
+name: model-training-evaluate
 on: [push]
 jobs:
   run:
@@ -6,22 +6,25 @@ jobs:
     container: docker://dvcorg/cml-py3:latest
     steps:
       - uses: actions/checkout@v2
-      - name: 'Train and Evaluate model'
+      - name: 'dvc repro from S3'
         shell: bash
+
         env:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+    
         run: |
-          # Install requirements
+        # Install requirements
           python -m pip install --upgrade pip
           sudo -H  pip install -r requirements.txt
-          # Pull data & run-cache from S3 and reproduce pipeline
+       # Pull data & run-cache from S3 and reproduce pipeline
           dvc pull --run-cache
           dvc repro
           # Report metrics
           echo "## Metrics" >> report.md
           cat data/04_results/olist/exp1_prophet_bed_bath_table.csv>> report.md
           echo "## Data viz" >> report.md
-          cml-publish data/05_extra/olist/xgb_importance/2018-01-28/olist_xgb_exp1_bed_bath_table.png --md >> report.md
           cml-send-comment report.md'''
          
           

@@ -47,3 +47,15 @@ stages:
     - path: data/02_processed/olist_sum_sales_with_payments.csv
       md5: 9038ddb0fdce7d1f6bcb0d1e1ae48a36
       size: 240855
+  processing:
+    cmd: python3 scripts/processing.py python3 scripts/split.py
+    deps:
+    - path: conf/catalog.yml
+      md5: 85083ac7791e081f349fae67766846cb
+      size: 1425
+    - path: conf/params.yml
+      md5: 9da8dc138619f4ced06d256f508df1a1
+      size: 1344
+    - path: src/utils.py
+      md5: a0f8ad8e38e3d034655c8b07e36a344b
+      size: 7397
