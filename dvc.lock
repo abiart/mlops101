@@ -1,8 +1,7 @@
 schema: '2.0'
 stages:
   load_data:
-    cmd: python scripts/load_data.py data/02_processed/olist_sales_with_payments.csv
-      data/02_processed/olist_sum_sales_with_payments.csv
+    cmd: python scripts/load_data.py
     deps:
     - path: conf/catalog.yml
       md5: 85083ac7791e081f349fae67766846cb

@@ -1,4 +1,4 @@
-'''name: Python Package and Test
+name: Python Package and Test
 on: 
    push :
 jobs:
@@ -21,4 +21,4 @@ jobs:
         - name: Test with pytest
           run: pytest
         - name: Python Black
-          run:  black . --check'''
+          run:  black . --check
