@@ -175,8 +175,5 @@ for prod_cat in params["olist"]["product_categories"]:
         mlflow.log_metric("time", duration_min)
         mlflow.prophet.log_model(model, "model")
 
-        model_uri = mlflow.get_artifact_uri(ARTIFACT_PATH)
-        print(f"Model artifact logged to: {model_uri}")
-
 
 # loaded_model = mlflow.prophet.load_model(model_uri)

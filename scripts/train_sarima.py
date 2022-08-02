@@ -9,8 +9,10 @@ import pandas as pd
 from pathlib import Path
 from time import time
 
+
 # check the version of python in vs , should be the V of the env
 import mlflow
+import mlflow.statsmodels
 import yaml
 
 # get url from dvc
@@ -65,10 +67,10 @@ merged_data["order_approved_at"] = pd.to_datetime(merged_data["order_approved_at
 # Step2: Create date folds
 date_ranges = make_dates(params["olist"]["experiment_dates"])
 
-mlflow.set_tracking_uri("http://ec2-34-224-166-169.compute-1.amazonaws.com:5000")
+mlflow.set_tracking_uri("http://ec2-54-160-132-136.compute-1.amazonaws.com:5000")
 for prod_cat in params["olist"]["product_categories"]:
     print(f"Processing product category: {prod_cat}")
-    ARTIFACT_PATH = "model"
+
     # Initialize mlflow tracking
 
     mlflow.set_experiment(prod_cat)
@@ -155,13 +157,14 @@ for prod_cat in params["olist"]["product_categories"]:
     duration_min = int((time() - start_timer) // 60)
     with mlflow.start_run() as run:
         mlflow.log_param("Product Category", prod_cat)
-        mlflow.log_param("SARIMA_Params_Criterion", used_params_folds)
+        # mlflow.log_param("SARIMA_Params_Criterion", used_params_folds)
         # mlflow.log_param("data_url", data_url)
         # mlflow.log_param("data_version", version)
         mlflow.log_metrics(lt_metrics)
         mlflow.log_metrics(nd_metrics)
         mlflow.log_artifact(fname)
-        model_uri = mlflow.get_artifact_uri(ARTIFACT_PATH)
-        mlflow.log_metric("time", duration_min)
 
-mlflow.statsmodels.load_model(model_uri, dst_path=None)
+        mlflow.log_metric("time", duration_min)
+        # mlflow.statsmodels.autolog()
+        # mlflow.sklearn.log_model(model,"sarmia")
+        # mlflow.statsmodels.log_model(model,  remove_data=True, artifact_path="model")
