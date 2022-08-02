@@ -5,8 +5,8 @@ jobs:
     runs-on: [ubuntu-latest]
     container: docker://dvcorg/cml-py3:latest
     steps:
-      - uses: actions/checkout@v2
-      - name: 'dvc repro from S3'
+       -uses: actions/checkout@v2
+       -name: 'dvc repro from S3'
         shell: bash
 
         env:
