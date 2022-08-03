@@ -44,8 +44,8 @@ stages:
       md5: 2fcace893a1af9c439f977f37b68cda3
       size: 210322
     - path: data/02_processed/olist_sum_sales_with_payments.csv
-      md5: 9038ddb0fdce7d1f6bcb0d1e1ae48a36
-      size: 240855
+      md5: cf80d92aca20df929de211ea712a01bf
+      size: 255104
   processing:
     cmd: python3 scripts/processing.py python3 scripts/split.py
     deps:
@@ -71,8 +71,8 @@ stages:
       md5: 2fcace893a1af9c439f977f37b68cda3
       size: 210322
     - path: data/02_processed/olist_sum_sales_with_payments.csv
-      md5: 9038ddb0fdce7d1f6bcb0d1e1ae48a36
-      size: 240855
+      md5: cf80d92aca20df929de211ea712a01bf
+      size: 255104
     - path: src/metrics.py
       md5: 3b9d108f85297dbaa9593910fad7fd48
       size: 2702
@@ -83,6 +83,9 @@ stages:
     - path: data/04_results/olist/exp1_prophet_bed_bath_table.csv
       md5: 12f307234484f1d44e8303f6a29c9223
       size: 1217
+    - path: data/04_results/olist/exp1_prophet_furniture_decor.csv
+      md5: 3b2b07af389f2922151b60bd40d0e736
+      size: 1242
     - path: data/04_results/olist/exp1_prophet_health_beauty.csv
       md5: 0bf49ac77058434ec95b25a5be9b81f1
       size: 1253
