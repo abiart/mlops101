@@ -16,13 +16,15 @@ jobs:
           # Install requirement
           python -m pip install --upgrade setuptools pip
           sudo -H  pip install -r requirements.txt
+          pip install --no-cache-dir --upgrade awscli pandas boto3 
+          pip install dvc[s3]
           # Pull data & run-cache from S3 and reproduce pipeline
           dvc pull --run-cache
           dvc repro
           # Report metrics
           echo "## Metrics" >> report.md
           cat data/04_results/olist/exp1_prophet_bed_bath_table.csv>> report.md
-          echo "## Data viz" >> report.md
+          echo "## Data viz from S3" >> report.md
           cml-send-comment report.md
           
          
