@@ -4,9 +4,13 @@ seaborn
 matplotlib
 joblib
 numpy
-ibm_watson_machine_learning
+pandas
 pyyaml
 pytest
+awscli
 pytest-dependency
 pre-commit
+boto3
+s3fs
 dvc 
+
