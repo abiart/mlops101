@@ -16,7 +16,7 @@ jobs:
           # Install requirement
           python -m pip install --upgrade setuptools pip
           sudo -H  pip install -r requirements.txt
-          pip install --no-cache-dir --upgrade awscli pandas boto3 
+          pip install  awscli pandas boto3 
           pip install dvc[s3]
           # Pull data & run-cache from S3 and reproduce pipeline
           dvc pull --run-cache
