@@ -14,7 +14,7 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
          run: | 
           # Install requirement
-          python -m pip install --upgrade pip
+          python -m pip install --upgrade setuptools pip
           sudo -H  pip install -r requirements.txt
           # Pull data & run-cache from S3 and reproduce pipeline
           dvc pull --run-cache
@@ -23,6 +23,7 @@ jobs:
           echo "## Metrics" >> report.md
           cat data/04_results/olist/exp1_prophet_bed_bath_table.csv>> report.md
           echo "## Data viz" >> report.md
-          cml-send-comment report.md'''
+          cml-send-comment report.md
+          
          
           
