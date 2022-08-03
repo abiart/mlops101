@@ -13,16 +13,13 @@ jobs:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
          run: | 
-          # Install requirement
           python -m pip install --upgrade setuptools pip
           sudo -H  pip install -r requirements.txt
-          python -m pip install boto3 --upgrade
-          python -m pip install awscli
-          pip install dvc[s3]
-          # Pull data & run-cache from S3 and reproduce pipeline
+          python -m pip3 install boto3 --upgrade
+          python -m pip3 install awscli
+          pip3 install dvc[s3]
           dvc pull --run-cache
           dvc repro
-          # Report metrics
           echo "## Metrics" >> report.md
           cat data/04_results/olist/exp1_prophet_bed_bath_table.csv>> report.md
           echo "## Data viz from S3" >> report.md
