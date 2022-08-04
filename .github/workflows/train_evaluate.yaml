@@ -1,6 +1,6 @@
 name: model-training-evaluate
 on: 
-   push :
+   push:
 jobs:
     reproduce_dvc:
     runs-on: [ubuntu-latest]
