@@ -1,10 +1,10 @@
 name: model-training-evaluate
 on: [push]
 jobs:
-  build:
-    runs-on: [ubuntu-latest]
-    container: docker://dvcorg/cml-py3:latest
-    steps:
+  reproduce dvc:
+      runs-on: [ubuntu-latest]
+      container: docker://dvcorg/cml-py3:latest
+      steps:
        - uses: actions/checkout@v2
          name: Configure AWS Credentials
          uses: aws-actions/configure-aws-credentials@v1
