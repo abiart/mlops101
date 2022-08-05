@@ -11,5 +11,6 @@ awscli
 pytest-dependency
 pre-commit
 boto3
+s3fs
 dvc
 
