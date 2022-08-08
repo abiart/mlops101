@@ -3,6 +3,7 @@ on: [push]
 jobs:
   run:
     runs-on: ubuntu-latest
+    container: docker://ghcr.io/iterative/cml:latest
     steps:
       - uses: actions/checkout@v2
         with:
