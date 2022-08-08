@@ -26,7 +26,6 @@ jobs:
           dvc pull  --run-cache        # Pull data & run-cache from S3
           dvc repro                        # Reproduce pipeline
       - uses: actions/checkout@v3
-      - uses: iterative/setup-dvc@v1
       - name: Create CML report
         env:
           REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
