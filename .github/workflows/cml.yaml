@@ -31,7 +31,7 @@ jobs:
           REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           echo "## Metrics" >> report.md
-          cat data/04_results/olist/naive_training_bed_bath_table.csv>> report.md
+          cat data/04_results/olist/exp1_prophet_bed_bath_table.csv>> report.md
           echo "## Data viz from S3" >> report.md
           cml-send-comment report.md
           

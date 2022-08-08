@@ -41,6 +41,7 @@ stages:
     - conf/params.yml
     - src/utils.py
     - src/metrics.py
+    - scripts/train_prophet.py
     outs:
      - data/04_results/olist/exp1_prophet_bed_bath_table.csv
      - data/04_results/olist/exp1_prophet_health_beauty.csv
