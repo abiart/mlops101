@@ -17,6 +17,9 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_S3_BUCKET: ${{ secrets.AWS_S3_BUCKET }}
           REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Run Experiment
+        env:
+          REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           sudo -H  pip3 install -r requirements.txt
           pip3 install --no-cache-dir --upgrade awscli pandas boto3  requests fsspec s3fs tabulate
