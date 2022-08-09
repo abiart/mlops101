@@ -156,7 +156,7 @@ for prod_cat in params["olist"]["product_categories"]:
 
     save_data = pd.DataFrame(
         {
-            "y_true": df_filtered["payment_value"].values,
+            # "y_true": df_filtered["payment_value"].values,
             "preds": all_predictions,
             "dates": df_filtered["order_approved_at"],
         }
