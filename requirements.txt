@@ -3,12 +3,12 @@ pandas
 seaborn
 matplotlib
 tqdm==4.48.0
-fbprophet==0.6
+fbprophet
 plotly==4.9.0
 hyperopt==0.2.4
 statsmodels==0.11.1
 xlrd==1.2.0        
-mlflow==1.9.1      
+mlflow>=1.23.1     
 joblib
 numpy
 mlflow
