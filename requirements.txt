@@ -1,9 +1,9 @@
 scikit-learn>=0.23
 seaborn
 matplotlib
-tqdm==4.48.0
-Cython==0.24
-fbprophet==0.1.post1
+tqdm
+Cython
+fbprophet
 numpy
 pandas
 pystan
