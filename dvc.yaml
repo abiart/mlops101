@@ -61,5 +61,6 @@ stages:
      - data/04_results/olist/exp1_prophet_housewares.csv
      - data/04_results/olist/exp1_prophet_furniture_decor.csv
 
-    outs:
+    
+    metrics:
      - data/04_results/metrics/metrics_prophetmodel.csv
