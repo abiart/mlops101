@@ -129,7 +129,7 @@ for prod_cat in params["olist"]["product_categories"]:
 
             # Fit the FB Prohpet Model
             model.fit(pd.concat([train_x.iloc[i:], test_y.iloc[:i]]))
-            future = model.make_future_dataframe(periods=1, freq="21D")
+            future = model.make_future_dataframe(periods=1, freq="28D")
             fcst = model.predict(future)["yhat"].iloc[-1]
             predictions.append(fcst)
 
@@ -163,6 +163,14 @@ for prod_cat in params["olist"]["product_categories"]:
     )
 
     save_data.to_csv(fname)
+
+    """#render dataframe as html
+    html = save_data.to_html(fname)
+
+    #write html to file
+    text_file = open("index.html", "w")
+    text_file.write(html)
+    text_file.close()"""
     duration_min = int((time() - start_timer) // 60)
 
     with mlflow.start_run():
