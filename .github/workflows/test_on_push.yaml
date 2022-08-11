@@ -3,7 +3,7 @@ on:
    push :
 jobs:
    Build:
-        runs-on: ubuntu-18.04ubuntu-latest
+        runs-on: ubuntu-18.04
         strategy:
           matrix:
             python-version: [3.7]
@@ -18,8 +18,7 @@ jobs:
              python -m pip install --upgrade setuptools pip
              pip install pytest black
              if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-        
-    Test:
+   Test:
         needs: [build]
         runs-on: [ubuntu-latest]
         steps:
