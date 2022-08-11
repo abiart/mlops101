@@ -74,8 +74,8 @@ stages:
       md5: cf80d92aca20df929de211ea712a01bf
       size: 255104
     - path: scripts/train_prophet.py
-      md5: 2149ce2e7fb6c7279144e50bff9fc959
-      size: 6008
+      md5: cac03bddf3ff1bb624549eeeecaa1a56
+      size: 6194
     - path: src/metrics.py
       md5: 3b9d108f85297dbaa9593910fad7fd48
       size: 2702
@@ -84,51 +84,54 @@ stages:
       size: 7397
     outs:
     - path: data/04_results/olist/exp1_prophet_bed_bath_table.csv
-      md5: 2fcbc7418e13e5b275f0b999429028d8
-      size: 1227
+      md5: c117952dbb25f50445c15c813289d74c
+      size: 1220
     - path: data/04_results/olist/exp1_prophet_furniture_decor.csv
-      md5: ec1fa13e7c255aa1ae5ef2396595dcca
-      size: 1246
+      md5: 536007199e2bc87c976f61a5b7c5e72d
+      size: 1247
     - path: data/04_results/olist/exp1_prophet_health_beauty.csv
-      md5: 05fb8c302d6cb64bb00d2cd501f7d4f6
-      size: 1255
+      md5: 21b2f2c9fac936f6fe10cde23f5c0276
+      size: 1262
     - path: data/04_results/olist/exp1_prophet_housewares.csv
-      md5: b6f9898676b82b54c67d55d0fe3fb332
-      size: 1243
+      md5: c38c25e227a3976a6a4eca98868ca5a0
+      size: 1241
     - path: data/04_results/olist/exp1_prophet_sports_leisure.csv
-      md5: d46940ae262c2a9d4b2fbfcebab43159
+      md5: db959c3e3b57a83c94aae83548cda26e
       size: 1248
     - path: data/04_results/olist/exp1_prophet_telephony.csv
-      md5: 43ebd038166db06588c95bb4ac51b97d
-      size: 1211
+      md5: 48eb4b25214e1b641a212175cea7394f
+      size: 1215
     - path: data/04_results/olist/exp1_prophet_watches_gifts.csv
-      md5: 73a956ea5735a7a3871ade1d437610f8
-      size: 1237
+      md5: b02130298adfef1ccde0eeb316df7acc
+      size: 1238
   evaluate:
     cmd: python3 scripts/evaluation_prophetmodel.py
     deps:
     - path: data/04_results/olist/exp1_prophet_bed_bath_table.csv
-      md5: 2fcbc7418e13e5b275f0b999429028d8
-      size: 1227
+      md5: c117952dbb25f50445c15c813289d74c
+      size: 1220
     - path: data/04_results/olist/exp1_prophet_furniture_decor.csv
-      md5: ec1fa13e7c255aa1ae5ef2396595dcca
-      size: 1246
+      md5: 536007199e2bc87c976f61a5b7c5e72d
+      size: 1247
     - path: data/04_results/olist/exp1_prophet_health_beauty.csv
-      md5: 05fb8c302d6cb64bb00d2cd501f7d4f6
-      size: 1255
+      md5: 21b2f2c9fac936f6fe10cde23f5c0276
+      size: 1262
     - path: data/04_results/olist/exp1_prophet_housewares.csv
-      md5: b6f9898676b82b54c67d55d0fe3fb332
-      size: 1243
+      md5: c38c25e227a3976a6a4eca98868ca5a0
+      size: 1241
     - path: data/04_results/olist/exp1_prophet_sports_leisure.csv
-      md5: d46940ae262c2a9d4b2fbfcebab43159
+      md5: db959c3e3b57a83c94aae83548cda26e
       size: 1248
     - path: data/04_results/olist/exp1_prophet_telephony.csv
-      md5: 43ebd038166db06588c95bb4ac51b97d
-      size: 1211
+      md5: 48eb4b25214e1b641a212175cea7394f
+      size: 1215
     - path: data/04_results/olist/exp1_prophet_watches_gifts.csv
-      md5: 73a956ea5735a7a3871ade1d437610f8
-      size: 1237
+      md5: b02130298adfef1ccde0eeb316df7acc
+      size: 1238
     outs:
     - path: data/04_results/metrics/metrics_prophetmodel.csv
-      md5: 92fcce568220a33fc3ab48743c89e690
-      size: 3099
+      md5: 7e0b130e81a7ec3b816d81a7b74433c9
+      size: 3064
+    - path: data/04_results/metrics/summary.json
+      md5: 02b5dcba1d9a4fca9a049311e361c84c
+      size: 132

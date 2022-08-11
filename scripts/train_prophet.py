@@ -185,3 +185,9 @@ for prod_cat in params["olist"]["product_categories"]:
 
 
 # loaded_model = mlflow.prophet.load_model(model_uri)
+"""
+res = pd.DataFrame(
+        metrics
+    )
+#dfj=metrics_df[['mase', 'rmsse']]
+res.to_json("./data/04_results/metrics/summary.json")"""
