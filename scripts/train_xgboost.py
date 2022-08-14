@@ -23,7 +23,7 @@ from hyperopt import hp, fmin, tpe, Trials, STATUS_OK, plotting, space_eval
 # Get the current project path (where you open the notebook)
 # and go up two levels to get the project path
 current_dir = Path.cwd()
-proj_path = current_dir.parent
+proj_path = current_dir
 
 # make the code in src available to import in this notebook
 import sys
@@ -93,14 +93,14 @@ merged_data["order_approved_at"] = pd.to_datetime(merged_data["order_approved_at
 # Step2: Create date folds
 date_ranges = make_dates(params["olist"]["experiment_dates"])
 
-
+mlflow.set_tracking_uri("http://ec2-54-82-49-127.compute-1.amazonaws.com:5000")
 for prod_cat in params["olist"]["product_categories"]:
     print(f"Processing product category: {prod_cat}")
 
     # Initialize mlflow tracking
     create_folder(os.path.join(proj_path, "mlruns"))
     # mlflow.set_tracking_uri(os.path.join(proj_path, 'mlruns'))
-    mlflow.set_tracking_uri(os.path.join("../../", "mlruns"))
+    # mlflow.set_tracking_uri(os.path.join("../../", "mlruns"))
     mlflow.set_experiment(prod_cat)
 
     start_timer = time()
@@ -247,11 +247,12 @@ for prod_cat in params["olist"]["product_categories"]:
             "dates": df_filtered["order_approved_at"],
         }
     )
+    save_data2 = save_data.set_index("dates")
 
     fdir = os.path.join(proj_path, catalog["results"]["dir"])
     fname = os.path.join(fdir, f"xgb_exp1_{prod_cat}.csv")
     create_folder(fdir)
-    save_data.to_csv(fname)
+    save_data2.to_csv(fname)
 
     fdir_hparam = os.path.join(
         proj_path, catalog["extra"]["dir"], catalog["extra"]["xgb_hyperparams"]
@@ -265,9 +266,8 @@ for prod_cat in params["olist"]["product_categories"]:
 
     with mlflow.start_run():
         mlflow.log_artifact(fname)
-        mlflow.log_artifact(fname_hparam)
         mlflow.log_param("model", "xgb")
         mlflow.log_metric("time", duration_min)
-        mlflow.log_param("add_date", "true")
         mlflow.log_params(params["xgb"])
         mlflow.log_metrics(test_metrics)
+        mlflow.xgboost.log_model(xgb_model, "xgboost_model")
