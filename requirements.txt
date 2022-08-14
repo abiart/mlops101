@@ -1,12 +1,20 @@
-
-scikit-learn>=0.23
-pandas
+cikit-learn>=0.23
 seaborn
 matplotlib
-joblib
+tqdm
+Cython
 numpy
-mlflow
 pandas
+pystan
+python-dateutil
+pytz
+six
+plotly
+hyperopt
+statsmodels
+xlrd      
+joblib
+mlflow
 pyyaml
 pytest
 awscli
@@ -15,6 +23,5 @@ pre-commit
 boto3
 s3fs
 dvc
-
 
 
