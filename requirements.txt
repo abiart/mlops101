@@ -1,4 +1,4 @@
-scikit-learn>=0.23
+cikit-learn>=0.23
 seaborn
 matplotlib
 tqdm

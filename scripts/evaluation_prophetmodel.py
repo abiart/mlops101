@@ -296,7 +296,7 @@ for prod_cat in prod_categories:
         plt.subplots_adjust(hspace=0.8)
 
         # Forecasts
-        axs[0].plot(temp["y_true"], marker="o", label="Real", alpha=0.8)
+        # axs[0].plot(temp["y_true"], marker="o", label="Real", alpha=0.8)
         if model == "sarima":
             # axs[0].plot(temp[f'y_pred_lt_{model}'], marker='o', label='Prediction (Long Term)',alpha=0.8)
             axs[0].plot(
