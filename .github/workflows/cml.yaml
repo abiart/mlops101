@@ -31,6 +31,9 @@ jobs:
           REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           echo "## Metrics" >> report.md
-          dvc metrics show --show-md >> report.md
+          #add run command of script if you want it automaticly trigger 
+          # Add table
+          cat data/04_results/metrics/summary.json >> report.md
+          # Send report
           cml-send-comment report.md
           

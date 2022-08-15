@@ -351,6 +351,6 @@ for prod_cat in prod_categories:
 metrics_df.to_csv("./data/04_results/metrics/metrics_prophetmodel.csv")
 
 
-res = pd.DataFrame([metrics_prophet[1]])
+res = pd.DataFrame(metrics_df)
 # dfj=metrics_df[['mase', 'rmsse']]
 res.to_json("./data/04_results/metrics/summary.json")
