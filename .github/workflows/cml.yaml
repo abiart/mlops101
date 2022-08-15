@@ -17,8 +17,12 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ secrets.AWS_DEFAULT_REGION }}
       - uses: s-weigand/setup-conda@v1
+        with:
+          update-conda: false
+          python-version: 3.7
+          conda-channels: anaconda, conda-forge
       - run: |
-          conda env create  [-n ForeacastingSales|-p ~/anaconda3/envs]  --file environmentt.yml
+          conda env create -n ForeacastingSales  --file environmentt.yml
           conda activate ForecastingSales
 
 
