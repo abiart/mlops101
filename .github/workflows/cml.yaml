@@ -16,16 +16,6 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ secrets.AWS_DEFAULT_REGION }}
-      - uses: s-weigand/setup-conda@v1
-        with:
-          update-conda: false
-          python-version: 3.7
-          conda-channels: anaconda, conda-forge
-      - run: |
-          conda env create -n ForeacastingSales  --file environmentt.yml
-          conda activate ForecastingSales
-
-
       - name: Run Experiment
         env:
           REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -33,6 +23,8 @@ jobs:
           sudo -H  pip3 install -r requirements.txt
           pip3 install --no-cache-dir --upgrade awscli pandas boto3  requests fsspec s3fs tabulate
           pip3 install dvc[s3]
+          conda env create -n ForeacastingSales  --file environmentt.yml
+          conda activate ForecastingSales
           dvc pull  --run-cache        # Pull data & run-cache from S3
           dvc repro                        # Reproduce pipeline 
       - uses: actions/checkout@v3
