@@ -18,8 +18,9 @@ jobs:
           aws-region: ${{ secrets.AWS_DEFAULT_REGION }}
       - uses: s-weigand/setup-conda@v1
       - run: |
-          conda env create ForeacastingSales -f environmentt.yml
+          conda env create  [-n ForeacastingSales|-p ~/anaconda3/envs]  --file environmentt.yml
           conda activate ForecastingSales
+
 
       - name: Run Experiment
         env:
