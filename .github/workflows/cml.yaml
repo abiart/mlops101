@@ -16,6 +16,14 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ secrets.AWS_DEFAULT_REGION }}
+      - uses: conda-incubator/setup-miniconda@v2
+        with:
+          activate-environment: anaconda-client-env
+          environment-file: etc/example-environment.yml
+          auto-activate-base: false
+        run:
+         conda activate ForecastingSales
+
       - name: Run Experiment
         env:
           REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -24,12 +32,13 @@ jobs:
           pip3 install --no-cache-dir --upgrade awscli pandas boto3  requests fsspec s3fs tabulate
           pip3 install dvc[s3]
           dvc pull  --run-cache        # Pull data & run-cache from S3
-          dvc repro                        # Reproduce pipeline
+          dvc repro                        # Reproduce pipeline 
       - uses: actions/checkout@v3
       - name: Create CML report
         env:
           REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
+         
           echo "## Metrics" >> report.md
           #add run command of script if you want it automaticly trigger 
           # Add table
