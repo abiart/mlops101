@@ -21,8 +21,8 @@ jobs:
           activate-environment: anaconda-client-env
           environment-file: etc/example-environment.yml
           auto-activate-base: false
-        run:
-         conda activate ForecastingSales
+      - run:
+          conda activate ForecastingSales
 
       - name: Run Experiment
         env:
