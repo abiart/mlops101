@@ -5,7 +5,6 @@ jobs:
     runs-on: ubuntu-latest
     container: docker://ghcr.io/iterative/cml:latest
     steps:
-      - uses: actions/checkout@v2
       - uses: iterative/setup-cml@v1
       - uses: actions/checkout@v3
         with:
@@ -16,6 +15,7 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ secrets.AWS_DEFAULT_REGION }}
+      - uses: actions/checkout@v2
       - name: Run Experiment
         env:
           REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -23,6 +23,8 @@ jobs:
           sudo -H  pip3 install -r requirements.txt
           pip3 install --no-cache-dir --upgrade awscli pandas boto3  requests fsspec s3fs tabulate
           pip3 install dvc[s3]
+          source /home/abir/anaconda3/etc/profile.d
+          conda activate $CONDA_ENV
           conda env create -n ForeacastingSales  --file environmentt.yml
           conda activate ForecastingSales
           dvc pull  --run-cache        # Pull data & run-cache from S3
