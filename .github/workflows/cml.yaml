@@ -24,7 +24,7 @@ jobs:
           pip3 install --no-cache-dir --upgrade awscli pandas boto3  requests fsspec s3fs tabulate
           pip3  install pystan==2.19.1.1
           sudo apt install python3-dev
-          python3 -m pip3 install prophet
+          python3 -m pip install prophet
           pip3 install dvc[s3]
           dvc pull  --run-cache        # Pull data & run-cache from S3
           dvc repro                        # Reproduce pipeline 
