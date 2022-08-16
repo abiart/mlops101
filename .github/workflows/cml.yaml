@@ -21,11 +21,7 @@ jobs:
           REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           sudo -H  pip3 install -r requirements.txt
-          pip3 install --no-cache-dir --upgrade awscli pandas boto3  requests fsspec s3fs tabulate
-          sudo apt update
-          sudo apt install python3-dev python3-pip python3-venv
-          python3 -m pip pystan 
-          python3 -m pip prophet
+          pip3 install --no-cache-dir --upgrade awscli pandas boto3  requests fsspec s3fs tabulat
           pip3 install dvc[s3]
           dvc pull  --run-cache        # Pull data & run-cache from S3
           dvc repro                        # Reproduce pipeline 
