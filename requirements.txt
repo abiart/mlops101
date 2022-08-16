@@ -23,17 +23,8 @@ pre-commit
 boto3
 s3fs
 dvc
+fbprophet
 
-scikit-learn=0.23.1
-- seaborn=0.10.1
-- tqdm=4.48.0
-- fbprophet=0.6
-- plotly=4.9.0
-- hyperopt=0.2.4
-- keras=2.3.1
-- yaml=0.2.5
-- statsmodels=0.11.1
-- xlrd=1.2.0          # For reading Excel files
-- mlflow=1.9.1  
+
 
 
