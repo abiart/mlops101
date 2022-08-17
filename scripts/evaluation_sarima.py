@@ -327,7 +327,7 @@ for prod_cat in prod_categories:
         # use the figure instance
         fig.savefig(
             "./data/04_results/plots/"
-            f"Model: {model} Product Category: {prod_cat}" + ".png"
+            f"Model:{model}Product_Category:{prod_cat}" + ".png"
         )
 
     print("\n\n\n")
