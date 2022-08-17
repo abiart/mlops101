@@ -33,8 +33,9 @@ jobs:
          
           echo "## Metrics" >> report.md
           #add run command of script if you want it automaticly trigger 
+          cml-publish data/04_results/plots/Model:sarimaProduct_Category:sports_leisure.png --md > report.md 
           # Add table
-          cat data/04_results/metrics/summary.json >> report.md
+          cat jsonmetrics.json >> report.md
           # Send report
           cml-send-comment report.md
           
