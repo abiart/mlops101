@@ -167,4 +167,4 @@ for prod_cat in params["olist"]["product_categories"]:
         mlflow.log_metric("time", duration_min)
         # mlflow.statsmodels.autolog()
         # mlflow.sklearn.log_model(model,"sarmia")
-        # mlflow.statsmodels.log_model(model,  remove_data=True, artifact_path="model")
+        mlflow.statsmodels.log_model(model, remove_data=True, artifact_path="model")
