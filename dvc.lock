@@ -1,7 +1,8 @@
 schema: '2.0'
 stages:
   load_data:
-    cmd: python scripts/load_data.py
+    cmd: python scripts/load_data.py data/02_processed/olist_sales_with_payments.csv
+      data/02_processed/olist_sum_sales_with_payments.csv
     deps:
     - path: conf/catalog.yml
       md5: 85083ac7791e081f349fae67766846cb
@@ -44,8 +45,8 @@ stages:
       md5: 2fcace893a1af9c439f977f37b68cda3
       size: 210322
     - path: data/02_processed/olist_sum_sales_with_payments.csv
-      md5: cf80d92aca20df929de211ea712a01bf
-      size: 255104
+      md5: 9038ddb0fdce7d1f6bcb0d1e1ae48a36
+      size: 240855
   processing:
     cmd: python3 scripts/processing.py python3 scripts/split.py
     deps:
