@@ -47,7 +47,7 @@ stages:
      - data/04_results/olist/exp1_sarima_telephony.csv
      - data/04_results/olist/exp1_sarima_watches_gifts.csv
      - data/04_results/olist/exp1_sarima_housewares.csv
-     - data/04_results/olist/exp1_sarima_furniture_decor.csv
+     - data/04_results/olist/exp1_sarima_housewares.csv
   evaluate:
     cmd: python3 scripts/evaluation_sarima.py
     deps:
@@ -57,9 +57,9 @@ stages:
      - data/04_results/olist/exp1_sarima_telephony.csv
      - data/04_results/olist/exp1_sarima_watches_gifts.csv
      - data/04_results/olist/exp1_sarima_housewares.csv
-     - data/04_results/olist/exp1_sarima_furniture_decor.csv
+     - data/04_results/olist/exp1_sarima_housewares.csv
     outs:
      - data/04_results/metrics/metricsof_sarima.csv
     metrics:
-    - data/04_results/metrics/summary.json:
-       cache: false
+    -  jsonmetrics.json:
+          cache: false

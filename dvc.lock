@@ -60,13 +60,13 @@ stages:
       md5: 2fcace893a1af9c439f977f37b68cda3
       size: 210322
     - path: data/02_processed/olist_sum_sales_with_payments.csv
-      md5: cf80d92aca20df929de211ea712a01bf
-      size: 255104
+      md5: 9038ddb0fdce7d1f6bcb0d1e1ae48a36
+      size: 240855
     - path: src/utils.py
       md5: a0f8ad8e38e3d034655c8b07e36a344b
       size: 7397
   train:
-    cmd: python3 scripts/train_prophet.py
+    cmd: python3 scripts/train_sarima.py
     deps:
     - path: conf/catalog.yml
       md5: 85083ac7791e081f349fae67766846cb
@@ -78,67 +78,67 @@ stages:
       md5: 2fcace893a1af9c439f977f37b68cda3
       size: 210322
     - path: data/02_processed/olist_sum_sales_with_payments.csv
-      md5: cf80d92aca20df929de211ea712a01bf
-      size: 255104
-    - path: scripts/train_prophet.py
-      md5: b7c29001da40084b9c5e3d0e7cbfd140
-      size: 6332
+      md5: 9038ddb0fdce7d1f6bcb0d1e1ae48a36
+      size: 240855
     - path: src/metrics.py
-      md5: 3b9d108f85297dbaa9593910fad7fd48
-      size: 2702
+      md5: c41181223b7ca4a217048c08f6bf76d9
+      size: 2709
+    - path: src/sarima.py
+      md5: e4cf6a806e3d85f485bddae4701861eb
+      size: 5575
     - path: src/utils.py
       md5: a0f8ad8e38e3d034655c8b07e36a344b
       size: 7397
     outs:
-    - path: data/04_results/olist/exp1_prophet_bed_bath_table.csv
-      md5: 4d1c94a5ab8706f2204ec148a22ed432
-      size: 1219
-    - path: data/04_results/olist/exp1_prophet_furniture_decor.csv
-      md5: 5c57ecbfb00907c1f7c9b29c145244b4
-      size: 1243
-    - path: data/04_results/olist/exp1_prophet_health_beauty.csv
-      md5: fb6ad5e5e09298075601393fd8dff9e3
-      size: 1254
-    - path: data/04_results/olist/exp1_prophet_housewares.csv
-      md5: 11a6c9a13c7e3c614c20175f7060da59
-      size: 1236
-    - path: data/04_results/olist/exp1_prophet_sports_leisure.csv
-      md5: fad43735a2e4c91ae108c982dabfe210
-      size: 1246
-    - path: data/04_results/olist/exp1_prophet_telephony.csv
-      md5: 92b5ce8b77908b05167f1c2deb623441
-      size: 1222
-    - path: data/04_results/olist/exp1_prophet_watches_gifts.csv
-      md5: 1cb40b7cd46e4ab14a59b7f2af46314c
-      size: 1234
+    - path: data/04_results/olist/exp1_sarima_bed_bath_table.csv
+      md5: fab65751b903add135760f72e165fa8c
+      size: 1702
+    - path: data/04_results/olist/exp1_sarima_furniture_decor.csv
+      md5: eeca09e295aabdb96c0bc953ef335e97
+      size: 1699
+    - path: data/04_results/olist/exp1_sarima_health_beauty.csv
+      md5: e5d966e6c9fedfd843c0fc32424f5952
+      size: 1702
+    - path: data/04_results/olist/exp1_sarima_housewares.csv
+      md5: c88fa520f525479195f1106b8ebe4b0e
+      size: 1681
+    - path: data/04_results/olist/exp1_sarima_sports_leisure.csv
+      md5: 0515c328ec47398bab4112f981dd2963
+      size: 1698
+    - path: data/04_results/olist/exp1_sarima_telephony.csv
+      md5: 9b4081e16e372127a1fc63bda3849b8d
+      size: 1640
+    - path: data/04_results/olist/exp1_sarima_watches_gifts.csv
+      md5: 44f073e545335d1b5275ac04ffb6b125
+      size: 1676
   evaluate:
-    cmd: python3 scripts/evaluation_prophetmodel.py
+    cmd: python3 scripts/evaluation_sarima.py
     deps:
-    - path: data/04_results/olist/exp1_prophet_bed_bath_table.csv
-      md5: 4d1c94a5ab8706f2204ec148a22ed432
-      size: 1219
-    - path: data/04_results/olist/exp1_prophet_furniture_decor.csv
-      md5: 5c57ecbfb00907c1f7c9b29c145244b4
-      size: 1243
-    - path: data/04_results/olist/exp1_prophet_health_beauty.csv
-      md5: fb6ad5e5e09298075601393fd8dff9e3
-      size: 1254
-    - path: data/04_results/olist/exp1_prophet_housewares.csv
-      md5: 11a6c9a13c7e3c614c20175f7060da59
-      size: 1236
-    - path: data/04_results/olist/exp1_prophet_sports_leisure.csv
-      md5: fad43735a2e4c91ae108c982dabfe210
-      size: 1246
-    - path: data/04_results/olist/exp1_prophet_telephony.csv
-      md5: 92b5ce8b77908b05167f1c2deb623441
-      size: 1222
-    - path: data/04_results/olist/exp1_prophet_watches_gifts.csv
-      md5: 1cb40b7cd46e4ab14a59b7f2af46314c
-      size: 1234
+    - path: data/04_results/olist/exp1_sarima_bed_bath_table.csv
+      md5: fab65751b903add135760f72e165fa8c
+      size: 1702
+    - path: data/04_results/olist/exp1_sarima_health_beauty.csv
+      md5: e5d966e6c9fedfd843c0fc32424f5952
+      size: 1702
+    - path: data/04_results/olist/exp1_sarima_housewares.csv
+      md5: c88fa520f525479195f1106b8ebe4b0e
+      size: 1681
+    - path: data/04_results/olist/exp1_sarima_housewares.csv
+      md5: c88fa520f525479195f1106b8ebe4b0e
+      size: 1681
+    - path: data/04_results/olist/exp1_sarima_sports_leisure.csv
+      md5: 0515c328ec47398bab4112f981dd2963
+      size: 1698
+    - path: data/04_results/olist/exp1_sarima_telephony.csv
+      md5: 9b4081e16e372127a1fc63bda3849b8d
+      size: 1640
+    - path: data/04_results/olist/exp1_sarima_watches_gifts.csv
+      md5: 44f073e545335d1b5275ac04ffb6b125
+      size: 1676
     outs:
-    - path: data/04_results/metrics/metrics_prophetmodel.csv
-      md5: 83cbbe0d27a8b9e45bb3ff1a95282b02
-      size: 3049
-    - path: data/04_results/metrics/summary.json
-      md5: ff2be6b7d34f3a2bff36dc34fe1b4573
-      size: 3356
+    - path: data/04_results/metrics/metricsof_sarima.csv
+      md5: 1ed10100b69be4c032351c8060d4a9c7
+      size: 3050
+    - path: jsonmetrics.json
+      md5: 78a9b4595fdf5a74eb059966a2b50a5c
+      size: 60

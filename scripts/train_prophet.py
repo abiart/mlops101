@@ -64,7 +64,7 @@ merged_data["order_approved_at"] = pd.to_datetime(merged_data["order_approved_at
 # Step2: Create date folds
 date_ranges = make_dates(params["olist"]["experiment_dates"])
 
-mlflow.set_tracking_uri("http://ec2-44-208-155-40.compute-1.amazonaws.com")
+mlflow.set_tracking_uri("http://ec2-44-208-155-40.compute-1.amazonaws.com:5000")
 for prod_cat in params["olist"]["product_categories"]:
     print(f"Processing product category: {prod_cat}")
 
