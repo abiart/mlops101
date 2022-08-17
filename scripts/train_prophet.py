@@ -64,7 +64,7 @@ merged_data["order_approved_at"] = pd.to_datetime(merged_data["order_approved_at
 # Step2: Create date folds
 date_ranges = make_dates(params["olist"]["experiment_dates"])
 
-mlflow.set_tracking_uri("http://ec2-54-82-49-127.compute-1.amazonaws.com:5000")
+mlflow.set_tracking_uri("http://ec2-44-208-155-40.compute-1.amazonaws.com:5000")
 for prod_cat in params["olist"]["product_categories"]:
     print(f"Processing product category: {prod_cat}")
 
@@ -129,7 +129,7 @@ for prod_cat in params["olist"]["product_categories"]:
 
             # Fit the FB Prohpet Model
             model.fit(pd.concat([train_x.iloc[i:], test_y.iloc[:i]]))
-            future = model.make_future_dataframe(periods=1, freq="28D")
+            future = model.make_future_dataframe(periods=1, freq="60D")
             fcst = model.predict(future)["yhat"].iloc[-1]
             predictions.append(fcst)
 

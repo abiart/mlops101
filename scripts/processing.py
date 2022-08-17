@@ -11,6 +11,7 @@ from sklearn import preprocessing
 
 # Get the current project path (where you open the notebook)
 # and go up two levels to get the project path
+# even  the project path depend from any level in the repositiry the  python command exuction
 current_dir = Path.cwd()
 proj_path = current_dir
 

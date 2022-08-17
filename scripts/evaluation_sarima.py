@@ -114,7 +114,7 @@ def get_min_max(df, date_ranges):
         # _metrics_lstm.append(get_metrics(temp['y_true'], temp['y_pred_lstm']))
 
     # Get the min and max for each metric for each model
-    return pd.DataFrame(
+    """return pd.DataFrame(
         {
             "model": ["sarima"],
             "min_wape": [
@@ -148,7 +148,7 @@ def get_min_max(df, date_ranges):
                 pd.DataFrame(_metrics_sarima)["mae"].min(),
             ],
         }
-    )
+    )"""
 
 
 def get_min_max(df, date_ranges):
@@ -165,7 +165,7 @@ def get_min_max(df, date_ranges):
         _metrics_sarima.append(get_metrics(temp["y_true"], temp["y_pred_sarima"]))
 
     # Get the min and max for each metric for each model
-    return pd.DataFrame(
+    """return pd.DataFrame(
         {
             "model": ["sarima"],
             "min_wape": [
@@ -199,11 +199,12 @@ def get_min_max(df, date_ranges):
                 pd.DataFrame(_metrics_sarima)["mae"].min(),
             ],
         }
-    )
+    )"""
 
 
 metrics_df = pd.DataFrame()
 metrics_mase_rmsse = pd.DataFrame()
+metricsjson = pd.DataFrame()
 
 for prod_cat in prod_categories:
 
@@ -222,25 +223,26 @@ for prod_cat in prod_categories:
     results = results.reset_index().rename(columns={"index": "model"})
 
     # Calculate the ranks for each metric
-    results["rank_mape"] = results.rank(axis=0)["mape"]
+    """results["rank_mape"] = results.rank(axis=0)["mape"]
     results["rank_wape"] = results.rank(axis=0)["wape"]
     results["rank_rmse"] = results.rank(axis=0)["rmse"]
     results["rank_mae"] = results.rank(axis=0)["mae"]
-    results["rank_r2"] = results.rank(axis=0, ascending=False)["r2"]
+    results["rank_r2"] = results.rank(axis=0, ascending=False)["r2"]"""
 
     # Add rank for rmsse and mase
-    results = results.merge(base_mae_rmse, how="left", on="product_category")
+    """results = results.merge(base_mae_rmse, how="left", on="product_category")
     results["mase"] = results["mae"] / results["base_mae"]
     results["rmsse"] = results["rmse"] / results["base_rmse"]
     results["rank_rmsse"] = results.rank(axis=0)["rmsse"]
-    results["rank_mase"] = results.rank(axis=0)["mase"]
+    results["rank_mase"] = results.rank(axis=0)["mase"]"""
 
-    min_max_df = get_min_max(df, make_dates(params["olist"]["experiment_dates"]))
-    results = results.merge(min_max_df, how="inner", on="model")
+    """min_max_df = get_min_max(df, make_dates(params["olist"]["experiment_dates"]))
+    results = results.merge(min_max_df, how="inner", on="model")"""
 
     # Calculate the minimum and maximum of each fold.
 
     metrics_df = metrics_df.append(results).reset_index(drop=True)
+    metricsjson = metricsjson.append(results).reset_index(drop=True)
 
     # merge base metrics for MASE and RMSSE
 
@@ -249,9 +251,11 @@ for prod_cat in prod_categories:
 #     metrics_mase_rmsse['mase'] = metrics_mase_rmsse['mae'] / metrics_mase_rmsse['base_mae']
 #     metrics_mase_rmsse['rmsse'] = metrics_mase_rmsse['rmse'] / metrics_mase_rmsse['base_rmse']
 
-metrics_df[["model", "product_category", "mase", "rmsse", "rank_mase", "rank_rmsse"]]
-
-all_dfs_mase_rmsse = []
+metrics_df[
+    ["model", "product_category"]
+]  # , "mase", "rmsse", "rank_mase", "rank_rmsse"]]
+metricsjson = [["model", "product_category", "rmse", "r2", "mape", "mae"]]
+"""all_dfs_mase_rmsse = []
 for metric in ["rmsse", "mase"]:
     rank_df = pd.DataFrame(
         metrics_df.groupby("model")[f"rank_{metric}"]
@@ -264,21 +268,10 @@ for metric in ["rmsse", "mase"]:
             index="model", columns=f"rank_{metric}", values=f"cnt_rank_{metric}"
         ).add_prefix(f"{metric}_")
     )
-pd.concat(all_dfs_mase_rmsse, axis=1)
+pd.concat(all_dfs_mase_rmsse, axis=1)"""
 
 all_dfs = []
-for metric in ["mape", "rmse", "wape", "r2", "mae"]:
-    rank_df = pd.DataFrame(
-        metrics_df.groupby("model")[f"rank_{metric}"]
-        .value_counts()
-        .rename(f"cnt_rank_{metric}")
-    ).reset_index()
-    rank_df[f"rank_{metric}"] = rank_df[f"rank_{metric}"].astype(int)
-    all_dfs.append(
-        rank_df.pivot_table(
-            index="model", columns=f"rank_{metric}", values=f"cnt_rank_{metric}"
-        ).add_prefix(f"{metric}_")
-    )
+
 
 for prod_cat in prod_categories:
 
@@ -334,7 +327,7 @@ for prod_cat in prod_categories:
         # use the figure instance
         fig.savefig(
             "./data/04_results/plots/"
-            f"Model: {model} Product Category: {prod_cat}" + ".png"
+            f"Model:{model}Product_Category:{prod_cat}" + ".png"
         )
 
     print("\n\n\n")
@@ -343,3 +336,6 @@ for prod_cat in prod_categories:
 # metrics_df[['model', 'product_category', 'mase', 'rmsse', 'rank_mase','rank_rmsse']]
 # converting to csv
 metrics_df.to_csv("./data/04_results/metrics/metricsof_sarima.csv")
+
+
+metrics_df.to_json("./jsonmetrics.json")

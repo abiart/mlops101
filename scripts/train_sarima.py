@@ -67,7 +67,7 @@ merged_data["order_approved_at"] = pd.to_datetime(merged_data["order_approved_at
 # Step2: Create date folds
 date_ranges = make_dates(params["olist"]["experiment_dates"])
 
-mlflow.set_tracking_uri("http://ec2-54-160-132-136.compute-1.amazonaws.com:5000")
+mlflow.set_tracking_uri("http://ec2-44-208-155-40.compute-1.amazonaws.com:5000")
 for prod_cat in params["olist"]["product_categories"]:
     print(f"Processing product category: {prod_cat}")
 
@@ -123,6 +123,7 @@ for prod_cat in params["olist"]["product_categories"]:
         nd_preds.extend(nd_predictions)
 
         used_params = model.get_params()
+        aboutparams = [used_params]
         used_params_folds.append(used_params)
 
     df_filtered = merged_data[
@@ -152,12 +153,12 @@ for prod_cat in params["olist"]["product_categories"]:
             "dates": df_filtered["order_approved_at"].values,
         }
     )
-
-    save_data.to_csv(fname)
+    save_data2 = save_data.set_index("dates")
+    save_data2.to_csv(fname)
     duration_min = int((time() - start_timer) // 60)
     with mlflow.start_run() as run:
         mlflow.log_param("Product Category", prod_cat)
-        # mlflow.log_param("SARIMA_Params_Criterion", used_params_folds)
+        mlflow.log_param("SARIMA_Params", aboutparams)
         # mlflow.log_param("data_url", data_url)
         # mlflow.log_param("data_version", version)
         mlflow.log_metrics(lt_metrics)
@@ -166,5 +167,4 @@ for prod_cat in params["olist"]["product_categories"]:
 
         mlflow.log_metric("time", duration_min)
         # mlflow.statsmodels.autolog()
-        # mlflow.sklearn.log_model(model,"sarmia")
-        # mlflow.statsmodels.log_model(model,  remove_data=True, artifact_path="model")
+        mlflow.sklearn.log_model(model, "sarmia_model")

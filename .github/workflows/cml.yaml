@@ -5,7 +5,6 @@ jobs:
     runs-on: ubuntu-latest
     container: docker://ghcr.io/iterative/cml:latest
     steps:
-      - uses: actions/checkout@v2
       - uses: iterative/setup-cml@v1
       - uses: actions/checkout@v3
         with:
@@ -16,21 +15,27 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ secrets.AWS_DEFAULT_REGION }}
+      - uses: actions/checkout@v2
       - name: Run Experiment
         env:
           REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           sudo -H  pip3 install -r requirements.txt
-          pip3 install --no-cache-dir --upgrade awscli pandas boto3  requests fsspec s3fs tabulate
+          pip3 install --no-cache-dir --upgrade awscli pandas boto3  requests fsspec s3fs 
           pip3 install dvc[s3]
           dvc pull  --run-cache        # Pull data & run-cache from S3
-          dvc repro                        # Reproduce pipeline
+          dvc repro                        # Reproduce pipeline 
       - uses: actions/checkout@v3
       - name: Create CML report
         env:
           REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
+         
           echo "## Metrics" >> report.md
-          dvc metrics show --show-md >> report.md
+          #add run command of script if you want it automaticly trigger 
+          cml-publish data/04_results/plots/Model:sarimaProduct_Category:sports_leisure.png --md > report.md 
+          # Add table
+          cat jsonmetrics.json >> report.md
+          # Send report
           cml-send-comment report.md
           

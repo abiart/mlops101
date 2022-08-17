@@ -1,11 +1,11 @@
-cikit-learn>=0.23
+scikit-learn>=0.23
 seaborn
 matplotlib
 tqdm
 Cython
 numpy
 pandas
-pystan
+pystan==2.19.1.1
 python-dateutil
 pytz
 six
@@ -23,5 +23,9 @@ pre-commit
 boto3
 s3fs
 dvc
+
+
+
+
 
 
