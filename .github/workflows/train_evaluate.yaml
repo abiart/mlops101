@@ -22,7 +22,16 @@ jobs:
         run: |
           sudo -H  pip3 install -r requirements.txt
           pip3 install --no-cache-dir --upgrade awscli pandas boto3  requests fsspec s3fs tabulate
-          #python scripts/sarima_train.py
+            # Pull data & run-cache from IBM COS and reproduce pipeline
+          dvc pull --run-cache
+          dvc repro
+
+          # Report metrics
+          echo "## Metrics" >> report.md
+          git fetch --prune
+          dvc metrics diff main --show-md >> report.md
+          cml-send-comment report.md
+
 
 
 

@@ -108,7 +108,7 @@ for prod_cat in params["olist"]["product_categories"]:
         ]
 
         # Define set of parameters for SARIMA
-        p = d = q = range(0, 2)
+        p = d = q = range(0, 1)
         pdq = list(itertools.product(p, d, q))
         spdq = list(itertools.product(p, d, q, [2, 3, 4]))
         all_params = list(itertools.product(pdq, spdq))

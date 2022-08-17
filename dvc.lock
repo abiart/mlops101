@@ -80,6 +80,9 @@ stages:
     - path: data/02_processed/olist_sum_sales_with_payments.csv
       md5: 9038ddb0fdce7d1f6bcb0d1e1ae48a36
       size: 240855
+    - path: scripts/train_sarima.py
+      md5: e90ec5450b0557614e976a48c3dd16a8
+      size: 5459
     - path: src/metrics.py
       md5: c41181223b7ca4a217048c08f6bf76d9
       size: 2709
@@ -91,54 +94,54 @@ stages:
       size: 7397
     outs:
     - path: data/04_results/olist/exp1_sarima_bed_bath_table.csv
-      md5: fab65751b903add135760f72e165fa8c
-      size: 1702
-    - path: data/04_results/olist/exp1_sarima_furniture_decor.csv
-      md5: eeca09e295aabdb96c0bc953ef335e97
-      size: 1699
+      md5: 666defe069ab95c2ef57ec9e36be93c4
+      size: 766
     - path: data/04_results/olist/exp1_sarima_health_beauty.csv
-      md5: e5d966e6c9fedfd843c0fc32424f5952
-      size: 1702
+      md5: dfcd74e99b3b90cded3a1c38bb8e6793
+      size: 767
     - path: data/04_results/olist/exp1_sarima_housewares.csv
-      md5: c88fa520f525479195f1106b8ebe4b0e
-      size: 1681
+      md5: 496a16f9646f8c849783be1d9539b714
+      size: 756
     - path: data/04_results/olist/exp1_sarima_sports_leisure.csv
-      md5: 0515c328ec47398bab4112f981dd2963
-      size: 1698
+      md5: b93b403539a80270e3a869821cf7405c
+      size: 761
     - path: data/04_results/olist/exp1_sarima_telephony.csv
-      md5: 9b4081e16e372127a1fc63bda3849b8d
-      size: 1640
+      md5: 5ca461e2ac4b384d95bb416c236709de
+      size: 738
     - path: data/04_results/olist/exp1_sarima_watches_gifts.csv
-      md5: 44f073e545335d1b5275ac04ffb6b125
-      size: 1676
+      md5: 15cb69d3c1f8e61d06da6423a588a33a
+      size: 754
   evaluate:
     cmd: python3 scripts/evaluation_sarima.py
     deps:
     - path: data/04_results/olist/exp1_sarima_bed_bath_table.csv
-      md5: fab65751b903add135760f72e165fa8c
-      size: 1702
+      md5: 666defe069ab95c2ef57ec9e36be93c4
+      size: 766
     - path: data/04_results/olist/exp1_sarima_health_beauty.csv
-      md5: e5d966e6c9fedfd843c0fc32424f5952
-      size: 1702
+      md5: dfcd74e99b3b90cded3a1c38bb8e6793
+      size: 767
     - path: data/04_results/olist/exp1_sarima_housewares.csv
-      md5: c88fa520f525479195f1106b8ebe4b0e
-      size: 1681
+      md5: 496a16f9646f8c849783be1d9539b714
+      size: 756
     - path: data/04_results/olist/exp1_sarima_housewares.csv
-      md5: c88fa520f525479195f1106b8ebe4b0e
-      size: 1681
+      md5: 496a16f9646f8c849783be1d9539b714
+      size: 756
     - path: data/04_results/olist/exp1_sarima_sports_leisure.csv
-      md5: 0515c328ec47398bab4112f981dd2963
-      size: 1698
+      md5: b93b403539a80270e3a869821cf7405c
+      size: 761
     - path: data/04_results/olist/exp1_sarima_telephony.csv
-      md5: 9b4081e16e372127a1fc63bda3849b8d
-      size: 1640
+      md5: 5ca461e2ac4b384d95bb416c236709de
+      size: 738
     - path: data/04_results/olist/exp1_sarima_watches_gifts.csv
-      md5: 44f073e545335d1b5275ac04ffb6b125
-      size: 1676
+      md5: 15cb69d3c1f8e61d06da6423a588a33a
+      size: 754
+    - path: scripts/evaluation_sarima.py
+      md5: 9d9703fe318ba08e9e77cf43b3ef0f9d
+      size: 10808
     outs:
     - path: data/04_results/metrics/metricsof_sarima.csv
-      md5: 1ed10100b69be4c032351c8060d4a9c7
-      size: 3050
+      md5: b22857adabdfecfc66a5232f28b197a7
+      size: 790
     - path: jsonmetrics.json
-      md5: 78a9b4595fdf5a74eb059966a2b50a5c
-      size: 60
+      md5: 30ee417d55bd347ba380d7511931f07e
+      size: 912
