@@ -1,7 +1,7 @@
-name: CML & DVC
+name: CML & DVC Report
 on: [push]
 jobs:
-  run:
+  MLpipeline_reproduce:
     runs-on: ubuntu-latest
     container: docker://ghcr.io/iterative/cml:latest
     steps:
