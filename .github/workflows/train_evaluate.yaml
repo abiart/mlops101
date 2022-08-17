@@ -27,8 +27,12 @@ jobs:
           dvc pull --run-cache
           dvc repro
           dvc push
-      - uses: actions/checkout@v3
-          # Report metrics
+        
+     - name: Create CML report
+        env:
+          REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+           # Report metrics
           echo "## Metrics" >> report.md
           git fetch --prune
           dvc metrics diff main --show-md >> report.md
