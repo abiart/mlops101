@@ -1,7 +1,7 @@
 name: model-training-evaluate
 on: [push]
 jobs:
-  training_prophet_model:
+  Retrain_model:
     runs-on: ubuntu-latest
     container: docker://ghcr.io/iterative/cml:latest
     steps:
@@ -25,6 +25,7 @@ jobs:
             # Pull data & run-cache from IBM COS and reproduce pipeline
           dvc pull --run-cache
           dvc repro
+          dvc push
 
           # Report metrics
           echo "## Metrics" >> report.md
