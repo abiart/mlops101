@@ -7,7 +7,6 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: iterative/setup-cml@v1
-      - uses: actions/checkout@v3
         with:
           fetch-depth: 0
           ref: ${{ github.event.pull_request.head.sha }}
@@ -16,16 +15,16 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ secrets.AWS_DEFAULT_REGION }}
-      - uses: actions/checkout@v2
       - name: Run Experiments
         env:
           REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           sudo -H  pip3 install -r requirements.txt
-          pip3 install --no-cache-dir --upgrade awscli pandas boto3  requests fsspec s3fs tabulate
-          # Pull data & run-cache from IBM COS and reproduce pipeline
+          pip3 install --no-cache-dir --upgrade awscli pandas boto3  requests fsspec s3fs 
+          pip3 install dvc[s3]
           dvc pull --run-cache
           dvc repro 
+      - uses: actions/checkout@v3
       - name: Create CML report
         env:
           REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
