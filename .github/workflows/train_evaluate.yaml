@@ -30,7 +30,6 @@ jobs:
         env:
           REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-           # Report metrics
           echo "## Metrics" >> report.md
           git fetch --prune
           dvc metrics diff main --show-md >> report.md
