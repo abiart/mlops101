@@ -25,10 +25,8 @@ jobs:
           pip3 install --no-cache-dir --upgrade awscli pandas boto3  requests fsspec s3fs tabulate
           # Pull data & run-cache from IBM COS and reproduce pipeline
           dvc pull --run-cache
-          dvc repro
-      
-        
-     - name: Create CML report
+          dvc repro 
+      - name: Create CML report
         env:
           REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
