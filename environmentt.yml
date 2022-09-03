@@ -11,11 +11,14 @@ dependencies:
 - keras=2.3.1
 - yaml=0.2.5
 - statsmodels=0.11.1
-- xlrd=1.2.0          # For reading Excel files
-- mlflow=1.9.1        # For logging experimentts
+- xlrd=1.2.0                # For reading Excel files
+- mlflow=1.9.1              # For logging experimentts
 - pip
 - pip:
   - pytrends==4.7.3
-#  - fastai==2.1.5
-# - tensorflow==2.3.1
   - xgboost==1.1.1
+
+
+
+
+

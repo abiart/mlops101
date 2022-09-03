@@ -8,8 +8,8 @@ stages:
       md5: 85083ac7791e081f349fae67766846cb
       size: 1425
     - path: conf/params.yml
-      md5: 9da8dc138619f4ced06d256f508df1a1
-      size: 1344
+      md5: 3cfbca235eb58fb2e4c9348ec16983d0
+      size: 1349
     - path: data/01_raw/olist_customers_dataset.csv
       md5: 6bbd5a63d741fc205b7a21717dff3d4c
       size: 8661702

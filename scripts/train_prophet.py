@@ -68,8 +68,6 @@ mlflow.set_tracking_uri("http://ec2-44-208-155-40.compute-1.amazonaws.com:5000")
 for prod_cat in params["olist"]["product_categories"]:
     print(f"Processing product category: {prod_cat}")
 
-    # ARTIFACT_PATH = "s3://mlops-101-storage/runs_artifacts"
-
     mlflow.set_experiment(prod_cat)
 
     metrics = []

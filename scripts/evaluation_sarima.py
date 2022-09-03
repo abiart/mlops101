@@ -254,7 +254,7 @@ for prod_cat in prod_categories:
 metrics_df[
     ["model", "product_category"]
 ]  # , "mase", "rmsse", "rank_mase", "rank_rmsse"]]
-metricsjson = [["model", "product_category", "rmse", "r2", "mape", "mae"]]
+metricsjson = [["product_category", "rmse", "r2", "mape"]]
 """all_dfs_mase_rmsse = []
 for metric in ["rmsse", "mase"]:
     rank_df = pd.DataFrame(
@@ -338,4 +338,6 @@ for prod_cat in prod_categories:
 metrics_df.to_csv("./data/04_results/metrics/metricsof_sarima.csv")
 
 
-metrics_df.to_json("./jsonmetrics.json")
+# metrics_df.to_json("./jsonmetrics.json")
+
+metrics_df.to_html("./metricstable.html")
