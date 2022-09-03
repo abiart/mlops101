@@ -25,6 +25,7 @@ jobs:
           pip3 install dvc[s3]
           dvc pull  --run-cache        # Pull data & run-cache from S3
           dvc repro                        # Reproduce pipeline 
+          dvc push
       - uses: actions/checkout@v3
       - name: Create CML report
         env:
