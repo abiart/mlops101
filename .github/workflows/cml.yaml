@@ -1,5 +1,5 @@
 name: CML & DVC
-on: [push]
+on: [pull]
 jobs:
   run:
     runs-on: ubuntu-latest
@@ -31,7 +31,7 @@ jobs:
           REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           echo "## Metrics Record" >> report.md
-          cml-publish data/04_results/metrics/metricssarima.png>> report.md
+          cml-publish data/04_results/metrics/metricssarima.png --md>> report.md
           cml-send-comment report.md
          
         

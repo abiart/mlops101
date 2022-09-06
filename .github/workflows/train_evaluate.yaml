@@ -22,7 +22,7 @@ jobs:
         run: |
           sudo -H  pip3 install -r requirements.txt
           pip3 install --no-cache-dir --upgrade awscli pandas boto3  requests fsspec s3fs tabulate
-          python scripts/native_train.py
+          python scripts/load_data.py
 
       
           
