@@ -23,8 +23,8 @@ jobs:
           sudo -H  pip3 install -r requirements.txt
           pip3 install --no-cache-dir --upgrade awscli pandas boto3  requests fsspec s3fs tabulate
           pip3 install dvc[s3]
-          dvc pull  --run-cache        # Pull data & run-cache from S3
-          dvc repro                        # Reproduce pipeline
+          #dvc pull  --run-cache        # Pull data & run-cache from S3
+          #dvc repro                        # Reproduce pipeline
       - uses: actions/checkout@v3
       - name: Create CML report
         env:
