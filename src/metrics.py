@@ -65,7 +65,7 @@ def get_metrics(y_true, y_pred, param_prefix="validation"):
 
     wape = weighted_mean_absolute_error(y_true, y_pred)
     rmse = sqrt(mean_squared_error(y_true, y_pred))
-    r2_metric = r2_score(y_true, y_pred) * (-1)
+    r2_metric = r2_score(y_true, y_pred)
     mape_metric = mean_absolute_percentage_error(y_true, y_pred)
     mae = mean_absolute_error(y_true, y_pred)
 

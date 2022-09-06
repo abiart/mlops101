@@ -24,8 +24,6 @@ import sys
 sys.path.append(os.path.join(proj_path, "src"))
 
 
-import xgboost as xgb
-from xgboost import XGBClassifier
 from metrics import mean_absolute_percentage_error, get_metrics
 from utils import make_dates
 from utils import create_folder
@@ -60,17 +58,10 @@ for prod_cat in prod_categories:
         proj_path / catalog["results"]["dir"] / f"exp1_prophet_{prod_cat}.csv"
     )
 
-    # clean up each experiments and standardize their outputs here
-    # xgb_exp1 = xgb_exp1.rename(columns={"preds": "y_pred_xgb"})
-    # lstm_exp1 = lstm_exp1.rename(columns={'y_pred': 'y_pred_lstm'})
-    # sarima_exp1 = sarima_exp1.rename(columns={'lt_preds': 'y_pred_lt_sarima'}) # can be lt_preds
-
     prophet_exp1 = prophet_exp1.rename(columns={"preds": "y_pred_prophet"})
 
     # Sets the index the same for all dfs so they can be concatenated based on the index
-    # xgb_exp1.set_index("dates", inplace=True)
-    # lstm_exp1.set_index('dates', inplace=True)
-    # sarima_exp1.set_index("dates", inplace=True)
+
     prophet_exp1.set_index("dates", inplace=True)
 
     df = pd.concat(
@@ -86,16 +77,6 @@ for prod_cat in prod_categories:
 
     all_product_categories[prod_cat] = df
 
-    base_mae_rmse_ll.append(
-        {
-            "product_category": prod_cat,
-            "base_mae": base_metrics["train_mae"].values[0],
-            "base_rmse": base_metrics["train_rmse"].values[0],
-        }
-    )
-
-base_mae_rmse = pd.DataFrame(base_mae_rmse_ll)
-
 
 def get_min_max(df, date_ranges):
 
@@ -112,48 +93,10 @@ def get_min_max(df, date_ranges):
         _metrics_prophet.append(get_metrics(temp["y_true"], temp["y_pred_prophet"]))
 
     # Get the min and max for each metric for each model
-    return pd.DataFrame(
-        {
-            "model": ["prophet"],
-            "min_wape": [
-                pd.DataFrame(_metrics_prophet)["wape"].min(),
-            ],
-            "min_rmse": [
-                pd.DataFrame(_metrics_prophet)["rmse"].min(),
-            ],
-            "min_r2": [
-                pd.DataFrame(_metrics_prophet)["r2"].min(),
-            ],
-            "min_mape": [
-                pd.DataFrame(_metrics_prophet)["mape"].min(),
-            ],
-            "max_wape": [
-                pd.DataFrame(_metrics_prophet)["wape"].max(),
-            ],
-            "max_rmse": [
-                pd.DataFrame(_metrics_prophet)["rmse"].max(),
-            ],
-            "max_r2": [
-                pd.DataFrame(_metrics_prophet)["r2"].max(),
-            ],
-            "max_mape": [
-                pd.DataFrame(_metrics_prophet)["mape"].max(),
-            ],
-            "max_mae": [
-                pd.DataFrame(_metrics_prophet)["mae"].max(),
-            ],
-            "min_mae": [
-                pd.DataFrame(_metrics_prophet)["mae"].min(),
-            ],
-        }
-    )
+    return pd.DataFrame({"model": ["prophet"]})
 
 
 def get_min_max(df, date_ranges):
-
-    # _metrics_xgb = []
-
-    # _metrics_lstm = []
     _metrics_prophet = []
 
     for window in date_ranges.itertuples():
@@ -162,48 +105,11 @@ def get_min_max(df, date_ranges):
             (pd.to_datetime(df.index) >= window[5])
             & (pd.to_datetime(df.index) <= window[6])
         ]
-        # _metrics_xgb.append(get_metrics(temp["y_true"], temp["y_pred_xgb"]))
 
-        # _metrics_lstm.append(get_metrics(temp['y_true'], temp['y_pred_lstm']))
         _metrics_prophet.append(get_metrics(temp["y_true"], temp["y_pred_prophet"]))
 
     # Get the min and max for each metric for each model
-    return pd.DataFrame(
-        {
-            "model": ["prophet"],
-            "min_wape": [
-                pd.DataFrame(_metrics_prophet)["wape"].min(),
-                # pd.DataFrame(_metrics_xgb)["wape"].min(),
-            ],
-            "min_rmse": [
-                pd.DataFrame(_metrics_prophet)["rmse"].min(),
-            ],
-            "min_r2": [
-                pd.DataFrame(_metrics_prophet)["r2"].min(),
-            ],
-            "min_mape": [
-                pd.DataFrame(_metrics_prophet)["mape"].min(),
-            ],
-            "max_wape": [
-                pd.DataFrame(_metrics_prophet)["wape"].max(),
-            ],
-            "max_rmse": [
-                pd.DataFrame(_metrics_prophet)["rmse"].max(),
-            ],
-            "max_r2": [
-                pd.DataFrame(_metrics_prophet)["r2"].max(),
-            ],
-            "max_mape": [
-                pd.DataFrame(_metrics_prophet)["mape"].max(),
-            ],
-            "max_mae": [
-                pd.DataFrame(_metrics_prophet)["mae"].max(),
-            ],
-            "min_mae": [
-                pd.DataFrame(_metrics_prophet)["mae"].min(),
-            ],
-        }
-    )
+    return pd.DataFrame()
 
 
 metrics_df = pd.DataFrame()
@@ -214,9 +120,7 @@ for prod_cat in prod_categories:
     temp = all_product_categories[prod_cat]
 
     # Get metrics for each model
-    # metrics_xgb = get_metrics(temp["y_true"], temp["y_pred_xgb"])
 
-    # metrics_lstm = get_metrics(temp['y_true'], temp['y_pred_lstm'])
     metrics_prophet = get_metrics(temp["y_true"], temp["y_pred_prophet"])
 
     results = pd.DataFrame(
@@ -225,66 +129,7 @@ for prod_cat in prod_categories:
     )
     results["product_category"] = prod_cat
     results = results.reset_index().rename(columns={"index": "model"})
-
-    # Calculate the ranks for each metric
-    results["rank_mape"] = results.rank(axis=0)["mape"]
-    results["rank_wape"] = results.rank(axis=0)["wape"]
-    results["rank_rmse"] = results.rank(axis=0)["rmse"]
-    results["rank_mae"] = results.rank(axis=0)["mae"]
-    results["rank_r2"] = results.rank(axis=0, ascending=False)["r2"]
-
-    # Add rank for rmsse and mase
-    results = results.merge(base_mae_rmse, how="left", on="product_category")
-    results["mase"] = results["mae"] / results["base_mae"]
-    results["rmsse"] = results["rmse"] / results["base_rmse"]
-    results["rank_rmsse"] = results.rank(axis=0)["rmsse"]
-    results["rank_mase"] = results.rank(axis=0)["mase"]
-
-    min_max_df = get_min_max(df, make_dates(params["olist"]["experiment_dates"]))
-    results = results.merge(min_max_df, how="inner", on="model")
-
-    # Calculate the minimum and maximum of each fold.
-
     metrics_df = metrics_df.append(results).reset_index(drop=True)
-
-    # merge base metrics for MASE and RMSSE
-
-#     metrics_mase_rmsse = metrics_df.merge(base_mae_rmse, how='left', on='product_category')
-#     metrics_mase_rmsse = metrics_mase_rmsse[['model', 'rmse', 'mae', 'product_category', 'base_mae', 'base_rmse']]
-#     metrics_mase_rmsse['mase'] = metrics_mase_rmsse['mae'] / metrics_mase_rmsse['base_mae']
-#     metrics_mase_rmsse['rmsse'] = metrics_mase_rmsse['rmse'] / metrics_mase_rmsse['base_rmse']
-
-metrics_df[["model", "product_category", "mase", "rmsse", "rank_mase", "rank_rmsse"]]
-
-all_dfs_mase_rmsse = []
-for metric in ["rmsse", "mase"]:
-    rank_df = pd.DataFrame(
-        metrics_df.groupby("model")[f"rank_{metric}"]
-        .value_counts()
-        .rename(f"cnt_rank_{metric}")
-    ).reset_index()
-    rank_df[f"rank_{metric}"] = rank_df[f"rank_{metric}"].astype(int)
-    all_dfs_mase_rmsse.append(
-        rank_df.pivot_table(
-            index="model", columns=f"rank_{metric}", values=f"cnt_rank_{metric}"
-        ).add_prefix(f"{metric}_")
-    )
-pd.concat(all_dfs_mase_rmsse, axis=1)
-
-all_dfs = []
-for metric in ["mape", "rmse", "wape", "r2", "mae"]:
-    rank_df = pd.DataFrame(
-        metrics_df.groupby("model")[f"rank_{metric}"]
-        .value_counts()
-        .rename(f"cnt_rank_{metric}")
-    ).reset_index()
-    rank_df[f"rank_{metric}"] = rank_df[f"rank_{metric}"].astype(int)
-    all_dfs.append(
-        rank_df.pivot_table(
-            index="model", columns=f"rank_{metric}", values=f"cnt_rank_{metric}"
-        ).add_prefix(f"{metric}_")
-    )
-
 for prod_cat in prod_categories:
 
     temp = all_product_categories[prod_cat]
@@ -348,9 +193,11 @@ for prod_cat in prod_categories:
 # metrics_df[['model', 'product_category', 'mase', 'rmsse', 'rank_mase','rank_rmsse']]
 # converting to csv
 
-metrics_df.to_csv("./data/04_results/metrics/metrics_prophetmodel.csv")
+met = metrics_df.set_index("product_category")
+# metrics_df.to_csv("./data/04_results/metrics/metrics_prophetmodel.csv")
+met.to_csv("./data/04_results/metrics/metrics_prophetmodel.csv")
 
+# res = pd.DataFrame(metrics_df)
 
-res = pd.DataFrame(metrics_df)
-# dfj=metrics_df[['mase', 'rmsse']]
-res.to_json("./data/04_results/metrics/summary.json")
+res = pd.DataFrame(met)
+met.to_html("./data/04_results/metrics/summary.html")

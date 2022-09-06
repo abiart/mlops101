@@ -12,6 +12,8 @@ import mlflow
 import yaml
 from prophet import Prophet
 from prophet.diagnostics import cross_validation, performance_metrics
+import json
+
 
 # import dvc.api
 # path (required)location and file name of the target to open, relative to the root of the project
@@ -177,8 +179,6 @@ for prod_cat in params["olist"]["product_categories"]:
         mlflow.log_artifact(fname)
         mlflow.log_param("Product Category", prod_cat)
         mlflow.log_param("model", "prophet")
-        # mlflow.log_param("data_url", data_url)
-        # mlflow.log_param("version", rev)
         mlflow.log_metrics(metrics)
         mlflow.log_metric("time", duration_min)
         mlflow.prophet.log_model(model, "model")
