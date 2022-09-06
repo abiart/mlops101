@@ -31,7 +31,7 @@ jobs:
           REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           echo "## Metrics Record" >> report.md
-          cat data/04_results/metrics/metricssarima.png>> report.md
+          cml-publish data/04_results/metrics/metricssarima.png>> report.md
           cml-send-comment report.md
          
         
