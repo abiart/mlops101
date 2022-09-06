@@ -12,8 +12,6 @@ import mlflow
 import yaml
 from prophet import Prophet
 from prophet.diagnostics import cross_validation, performance_metrics
-import json
-
 
 # import dvc.api
 # path (required)location and file name of the target to open, relative to the root of the project
@@ -164,7 +162,9 @@ for prod_cat in params["olist"]["product_categories"]:
         }
     )
 
-    save_data.to_csv(fname)
+    save_data2 = save_data.set_index("dates")
+
+    save_data2.to_csv(fname)
 
     """#render dataframe as html
     html = save_data.to_html(fname)
