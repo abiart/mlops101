@@ -1,5 +1,5 @@
 name: CML & DVC
-on: [pull]
+on: [push]
 jobs:
   run:
     runs-on: ubuntu-latest
