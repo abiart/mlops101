@@ -30,10 +30,8 @@ jobs:
         env:
           REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          echo "## Metrics" >> report.md
-          cat data/04_results/olist/naive_training_bed_bath_table.csv>> report.md
-          echo "## Data viz from S3" >> report.md
-          dvc metrics show--show-md >> report.md
+          echo "## Metrics Record" >> report.md
+          cat data/04_results/metrics/metricssarima.png>> report.md
           cml-send-comment report.md
          
         
