@@ -59,7 +59,7 @@ stages:
      - data/04_results/olist/exp1_sarima_housewares.csv
      - data/04_results/olist/exp1_sarima_housewares.csv
     outs:
-     - data/04_results/metrics/metricsof_sarima.csv
+     - data/04_results/metrics/metricsof_sarima2.csv
     metrics:
     -  jsonmetrics.json:
           cache: false
