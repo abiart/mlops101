@@ -15,9 +15,9 @@ This repository contains the setup process for deploying a remote tracking serve
      - [Launch the tracking server](#7-launch-the-tracking-server)
      - [Integrate MLflow in training model code](#8-integrate-mlflow-in-training-model-code)
      - [UI Experiments Hosted on EC2](#9-ui-experiments-hosted-on-ec2)
-3. [Usage](#Usage)
-   - [Using requirements.txt](#1.Using`requirements.txt`)
+3.  [Usage](#Usage)
 4. [Contributing](#Contributing)
+
 ## Purpose
 
 The purpose of this repository is to guide you through the process of setting up a centralized tracking server for managing machine learning experiments using MLflow on AWS. By following this guide, users can establish a scalable and secure infrastructure for tracking experiment metadata, parameters, metrics, and artifacts, facilitating collaboration, reproducibility, and efficient model development in the Mlops pipeline.
@@ -102,51 +102,38 @@ The purpose of this repository is to guide you through the process of setting up
 
 ## Usage
 
- To reproduce the work, follow the steps below based on your preferred method of environment creation:
-
-### 1. Using `requirements.txt`
-
-   1. **Create a Virtual Environment**: 
-    Open your terminal and navigate to the project directory. Then, run the following commands to create and activate a virtual environment:
-
+   To reproduce the work you can create a Virtual Environment
       ```bash
-      # Create a virtual environment named 'myenv'
-       python3 -m venv myenv
+            # Create a virtual environment named 'myenv'
+               python3 -m venv myenv
     
-      # Activate the virtual environment
-       source myenv/bin/activate
-       ```
+             # Activate the virtual environment
+                source myenv/bin/activate
+   
+     
+   With the virtual environment activated, install the required packages listed in the `requirements.txt` file using `pip`:
+   ```bash
+          pip install -r requirements.txt 
+```
 
-   2. **Install Dependencies**: 
-    With the virtual environment activated, install the required packages listed in the `requirements.txt` file using `pip`:
-    
-      ```bash
-          pip install -r requirements.txt
-       ```
 
-   3. **Run the Project**: 
-    Once all dependencies are installed, you can run the project using the appropriate commands or scripts provided.
 
-### 2. Using `environment.yml` (with Conda)
-
-1. **Create a Conda Environment**:
- If you have an `environment.yml` file, you can use Conda to create a new environment based on it. Run the following command in your terminal:
+You can also create a Conda Environment if you have an `environment.yml` file, you can use Conda to create a new environment based on it. Run the following command in your terminal:
  
-    ```bash
-    conda env create -f environment.yml
-    ```
+   ```bash
+        conda env create -f environment.yml
+   ```
 
-2. **Activate the Conda Environment**:
   Once  the environment is created, activate it using the following command:
 
-    ```bash
+   ```bash
     conda activate <environment_name>
-    ```
+   ```
 
-    Replace `<environment_name>` with the name of the Conda environment you created.
+Replace `<environment_name>` with the name of the Conda environment you created.
 
-3. **Run the Project**: 
- After activating the Conda environment, you can run the project as usual, using the appropriate commands or scripts provided.
+
+After activating the Conda environment, you can run the project as usual, using the appropriate commands or scripts provided.
 
 ## Contributions
 
